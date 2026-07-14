@@ -1,14 +1,64 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { CarFront } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CarFront } from "lucide-react";
+import { loginStudent } from "@/services/AuthApi.js";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.email || !formData.password) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const student = await loginStudent(formData.email, formData.password);
+
+      if (!student) {
+        alert("Invalid email or password.");
+        setLoading(false);
+        return;
+      }
+
+      localStorage.setItem("student", JSON.stringify(student));
+
+      alert(`Welcome ${student.fullName}!`);
+
+      navigate("/student-dashboard");
+    } catch (error) {
+      console.error(error);
+      alert("Login failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-100 flex items-center justify-center px-4 py-10">
-      <Card className="w-full max-w-5xl overflow-hidden shadow-2xl rounded-3xl">
+      <Card className="w-full max-w-6xl rounded-3xl shadow-2xl overflow-hidden">
         <div className="grid md:grid-cols-2">
           {/* Left Section */}
           <div className="hidden md:flex flex-col justify-center bg-blue-900 text-white p-10">
@@ -23,37 +73,35 @@ const Login = () => {
             </div>
 
             <h2 className="text-4xl font-bold leading-tight mb-6">
-              Learn.
+              Welcome
               <br />
-              Practice.
-              <br />
-              Drive with Confidence.
+              Back.
             </h2>
 
-            <p className="text-slate-300 text-lg">
-              Access your driving courses, book practical lessons, track your
-              progress and become a confident driver.
+            <p className="text-slate-300 text-lg leading-8">
+              Login to continue learning, book driving lessons, take theory
+              quizzes and track your driving progress.
             </p>
           </div>
 
           {/* Right Section */}
-
           <CardContent className="p-8 md:p-12">
             <div className="max-w-md mx-auto">
-              <h2 className="text-3xl font-bold text-slate-900">
-                Welcome Back
-              </h2>
+              <h2 className="text-3xl font-bold text-slate-900">Login</h2>
 
               <p className="text-slate-500 mt-2 mb-8">
-                Login to continue your driving journey.
+                Sign in to your account.
               </p>
 
-              <form className="space-y-6">
+              <form className="space-y-5" onSubmit={handleSubmit}>
                 <div>
                   <Label>Email Address</Label>
 
                   <Input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="Enter your email"
                     className="mt-2"
                   />
@@ -64,27 +112,20 @@ const Login = () => {
 
                   <Input
                     type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
                     placeholder="Enter your password"
                     className="mt-2"
                   />
                 </div>
 
-                <div className="flex items-center justify-between text-sm">
-                  <label className="flex items-center gap-2">
-                    <input type="checkbox" />
-                    Remember me
-                  </label>
-
-                  <Link
-                    to="/forgot-password"
-                    className="text-blue-900 hover:text-yellow-500"
-                  >
-                    Forgot Password?
-                  </Link>
-                </div>
-
-                <Button className="w-full bg-green-600 hover:bg-green-700 h-11">
-                  Login
+                <Button
+                  type="submit"
+                  className="w-full bg-green-600 hover:bg-green-700"
+                  disabled={loading}
+                >
+                  {loading ? "Logging in..." : "Login"}
                 </Button>
               </form>
 
