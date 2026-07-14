@@ -6,9 +6,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginStudent } from "@/services/AuthApi.js";
+import { useAuth } from "@/context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -43,11 +45,11 @@ const Login = () => {
         return;
       }
 
-      localStorage.setItem("student", JSON.stringify(student));
-
+      login(student)
       alert(`Welcome ${student.fullName}!`);
-
       navigate("/student-dashboard");
+
+
     } catch (error) {
       console.error(error);
       alert("Login failed.");

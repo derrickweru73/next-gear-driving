@@ -74,7 +74,7 @@ const Register = () => {
     <div className="min-h-screen bg-slate-100 flex items-center justify-center px-4 py-10">
       <Card className="w-full max-w-6xl overflow-hidden rounded-3xl shadow-2xl">
         <div className="grid md:grid-cols-2">
-          Left Section
+          {/* Left Section */}
           <div className="hidden md:flex flex-col justify-center bg-blue-900 text-white p-10">
             <div className="flex items-center gap-3 mb-8">
               <CarFront className="h-10 w-10 text-yellow-400" />
