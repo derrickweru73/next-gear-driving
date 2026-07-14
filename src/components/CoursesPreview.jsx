@@ -1,154 +1,131 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Clock3, Users, Star, ArrowRight } from "lucide-react";
+import { Clock3, Star, ArrowRight } from "lucide-react";
 
 const courses = [
   {
     id: 1,
     title: "Beginner Driving",
     image:
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517520287167-4bbf64a00d66?auto=format&fit=crop&w=900&q=80",
     duration: "6 Weeks",
-    students: "500+ Students",
     rating: "4.9",
-    price: "KES 15,000",
-    description:
-      "Perfect for first-time drivers. Learn road safety, vehicle control, parking, and driving confidence.",
+    price: "KES 18,000",
   },
   {
     id: 2,
-    title: "Defensive Driving",
+    title: "Automatic Driving",
     image:
-      "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80",
-    duration: "4 Weeks",
-    students: "320+ Students",
-    rating: "4.8",
-    price: "KES 12,500",
-    description:
-      "Improve hazard awareness, emergency handling, and safe driving techniques for all road conditions.",
+      "https://images.unsplash.com/photo-1520050206274-a1ae44613e6d?auto=format&fit=crop&w=900&q=80",
+    duration: "5 Weeks",
+    rating: "5.0",
+    price: "KES 20,000",
   },
   {
     id: 3,
-    title: "Automatic Driving",
+    title: "Defensive Driving",
     image:
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80",
-    duration: "5 Weeks",
-    students: "420+ Students",
-    rating: "5.0",
-    price: "KES 14,000",
-    description:
-      "Master automatic vehicle operation with practical lessons from experienced instructors.",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80",
+    duration: "4 Weeks",
+    rating: "4.8",
+    price: "KES 15,000",
+  },
+  {
+    id: 4,
+    title: "Refresher Course",
+    image:
+      "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=900&q=80",
+    duration: "2 Weeks",
+    rating: "4.9",
+    price: "KES 10,000",
   },
 ];
 
 const CoursesPreview = () => {
   return (
-    <section id="courses" className="bg-[#F8F6F2] py-24">
+    <section id="courses" className="bg-[#F8FAFC] py-16">
       <div className="max-w-7xl mx-auto px-6">
+        {/* Heading */}
 
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-[#234E3B] font-semibold uppercase tracking-wider">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="text-[#F97316] uppercase tracking-widest font-semibold">
             Our Courses
           </span>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mt-4">
-            Learn with Professional Driving Courses
+          <h2 className="text-4xl font-bold text-[#0F172A] mt-3">
+            Learn From Certified Driving Professionals
           </h2>
 
-          <p className="text-gray-600 mt-6 text-lg leading-8">
-            Whether you're a complete beginner or looking to sharpen your
-            driving skills, Next Gear Driving LMS offers practical and theory
-            courses designed to help you become a safe and confident driver.
+          <p className="text-slate-600 mt-4">
+            Professional practical and theory lessons designed to help you
+            become a confident, safe and licensed driver.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+        {/* Course Cards */}
 
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {courses.map((course) => (
             <div
               key={course.id}
-              className="bg-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
+              className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <img
                 src={course.image}
                 alt={course.title}
-                className="h-64 w-full object-cover"
+                className="w-full h-36 object-cover"
               />
 
-              <div className="p-7">
-
-                <div className="flex justify-between items-center mb-4">
-
-                  <span className="bg-green-100 text-[#234E3B] px-3 py-1 rounded-full text-sm font-semibold">
+              <div className="p-4">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="bg-orange-100 text-[#F97316] text-xs font-bold px-3 py-1 rounded-full">
                     {course.price}
                   </span>
 
-                  <div className="flex items-center gap-1 text-yellow-500">
-                    <Star fill="currentColor" size={18} />
-                    <span className="text-gray-700 font-medium">
-                      {course.rating}
-                    </span>
-                  </div>
+                  <div className="flex items-center gap-1">
+                    <Star
+                      size={15}
+                      className="text-yellow-500"
+                      fill="currentColor"
+                    />
 
+                    <span className="text-sm font-medium">{course.rating}</span>
+                  </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900">
+                <h3 className="text-lg font-bold text-[#0F172A]">
                   {course.title}
                 </h3>
 
-                <p className="text-gray-600 mt-4 leading-7">
-                  {course.description}
-                </p>
+                <div className="flex items-center gap-2 mt-3 text-slate-500 text-sm">
+                  <Clock3 size={16} />
 
-                <div className="flex justify-between mt-6 text-gray-500">
-
-                  <div className="flex items-center gap-2">
-                    <Clock3 size={18} />
-                    <span>{course.duration}</span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <Users size={18} />
-                    <span>{course.students}</span>
-                  </div>
-
+                  <span>{course.duration}</span>
                 </div>
 
-                <div className="flex gap-4 mt-8">
-
-                  <Link
-                    to="/courses"
-                    className="flex-1 border-2 border-[#234E3B] text-[#234E3B] py-3 rounded-xl text-center font-semibold hover:bg-[#234E3B] hover:text-white transition"
-                  >
-                    Learn More
-                  </Link>
-
-                  <Link
-                    to="/register"
-                    className="flex-1 bg-[#234E3B] text-white py-3 rounded-xl text-center font-semibold hover:bg-[#18382A] transition flex justify-center items-center gap-2"
-                  >
-                    Enroll
-                    <ArrowRight size={18} />
-                  </Link>
-
-                </div>
-
+                <Link
+                  to="/booking"
+                  className="mt-5 flex items-center justify-center gap-2 bg-[#F97316] hover:bg-[#EA580C] text-white py-2.5 rounded-lg text-sm font-semibold transition"
+                >
+                  Book Now
+                  <ArrowRight size={16} />
+                </Link>
               </div>
             </div>
           ))}
-
         </div>
 
-        <div className="text-center mt-16">
+        {/* View All */}
+
+        <div className="text-center mt-12">
           <Link
             to="/courses"
-            className="inline-flex items-center gap-3 bg-[#234E3B] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#18382A] transition"
+            className="inline-flex items-center gap-2 border-2 border-[#0F172A] text-[#0F172A] px-7 py-3 rounded-xl font-semibold hover:bg-[#0F172A] hover:text-white transition"
           >
             View All Courses
-            <ArrowRight size={20} />
+            <ArrowRight size={18} />
           </Link>
         </div>
-
       </div>
     </section>
   );
