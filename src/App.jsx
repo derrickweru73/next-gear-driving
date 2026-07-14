@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Reviews from "./components/Reviews";
 import WhyChooseUs from "./components/WhyChooseUs";
 import FAQ from "./components/FAQ";
+import Courses from "./pages/Courses";
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
       <Routes>
 
          
+        <Route path="/courses" element={<Courses />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/whyChooseus" element={<WhyChooseUs />} />
         <Route path="/faq" element={<FAQ />} />
