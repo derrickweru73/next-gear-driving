@@ -94,7 +94,7 @@ const Navbar = () => {
           </Link>
 
           <Link to="/register">
-            <Button className="bg-[#F97316] hover:bg-[#EA580C] text-white rounded-full px-7">
+            <Button className="bg-[#F97316] hover:bg-[#EA580C] text-black rounded-full px-7">
               Enroll Now
             </Button>
           </Link>

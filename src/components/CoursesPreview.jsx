@@ -45,6 +45,7 @@ const CoursesPreview = () => {
   return (
     <section id="courses" className="bg-[#F8F6F2] py-24">
       <div className="max-w-7xl mx-auto px-6">
+
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[#234E3B] font-semibold uppercase tracking-wider">
             Our Courses
@@ -62,6 +63,7 @@ const CoursesPreview = () => {
         </div>
 
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+
           {courses.map((course) => (
             <div
               key={course.id}
@@ -74,7 +76,9 @@ const CoursesPreview = () => {
               />
 
               <div className="p-7">
+
                 <div className="flex justify-between items-center mb-4">
+
                   <span className="bg-green-100 text-[#234E3B] px-3 py-1 rounded-full text-sm font-semibold">
                     {course.price}
                   </span>
@@ -85,6 +89,7 @@ const CoursesPreview = () => {
                       {course.rating}
                     </span>
                   </div>
+
                 </div>
 
                 <h3 className="text-2xl font-bold text-gray-900">
@@ -96,6 +101,7 @@ const CoursesPreview = () => {
                 </p>
 
                 <div className="flex justify-between mt-6 text-gray-500">
+
                   <div className="flex items-center gap-2">
                     <Clock3 size={18} />
                     <span>{course.duration}</span>
@@ -105,9 +111,11 @@ const CoursesPreview = () => {
                     <Users size={18} />
                     <span>{course.students}</span>
                   </div>
+
                 </div>
 
                 <div className="flex gap-4 mt-8">
+
                   <Link
                     to="/courses"
                     className="flex-1 border-2 border-[#234E3B] text-[#234E3B] py-3 rounded-xl text-center font-semibold hover:bg-[#234E3B] hover:text-white transition"
@@ -122,10 +130,13 @@ const CoursesPreview = () => {
                     Enroll
                     <ArrowRight size={18} />
                   </Link>
+
                 </div>
+
               </div>
             </div>
           ))}
+
         </div>
 
         <div className="text-center mt-16">
@@ -137,6 +148,7 @@ const CoursesPreview = () => {
             <ArrowRight size={20} />
           </Link>
         </div>
+
       </div>
     </section>
   );

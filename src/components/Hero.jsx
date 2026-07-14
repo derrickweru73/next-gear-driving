@@ -4,20 +4,20 @@ import { ArrowRight, PlayCircle, Star, ShieldCheck } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="bg-[#F8F6F2] py-16 lg:py-24">
+    <section className="bg-white py-16 lg:py-24">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div>
-            <div className="inline-flex items-center gap-2 bg-green-100 text-[#234E3B] px-4 py-2 rounded-full text-sm font-semibold mb-6">
+            <div className="inline-flex items-center gap-2 bg-white text-[#97316] px-4 py-2 rounded-full text-sm font-semibold mb-6">
               <ShieldCheck size={18} />
               Trusted Driving Learning Platform
             </div>
 
             <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
               Master Driving
-              <span className="text-[#234E3B]"> Skills </span>
-              with Confidence
+              <span className="text-[#F97316]"> Skills </span>
+              with Confidence 
             </h1>
 
             <p className="mt-6 text-lg text-gray-600 leading-8">
@@ -29,7 +29,7 @@ const Hero = () => {
             <div className="mt-10 flex flex-wrap gap-4">
               <Link
                 to="/register"
-                className="bg-[#234E3B] text-white px-7 py-4 rounded-xl font-semibold hover:bg-[#18382A] transition flex items-center gap-2"
+                className="bg-[#F97316] text-black px-7 py-4 rounded-xl font-semibold hover:bg-[#18382A] transition flex items-center gap-2"
               >
                 Get Started
                 <ArrowRight size={18} />
