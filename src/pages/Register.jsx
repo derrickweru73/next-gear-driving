@@ -1,11 +1,75 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { CarFront } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { registerStudent } from "@/services/AuthApi.js";
 
 const Register = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (
+      !formData.fullName ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    try {
+      await registerStudent({
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+        role: "student",
+      });
+
+      alert("Registration Successful!");
+
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        password: "",
+        confirmPassword: "",
+      });
+
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+      alert("Registration failed. Please try again.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-100 flex items-center justify-center px-4 py-10">
       <Card className="w-full max-w-6xl overflow-hidden rounded-3xl shadow-2xl">
@@ -31,8 +95,8 @@ const Register = () => {
             </h2>
 
             <p className="text-slate-300 text-lg leading-8">
-              Register as a student to access online driving lessons, theory
-              quizzes, lesson booking, progress tracking and more.
+              Register as a student to access driving lessons, theory quizzes,
+              lesson booking and progress tracking.
             </p>
           </div>
 
@@ -47,11 +111,14 @@ const Register = () => {
                 Fill in your details below to get started.
               </p>
 
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={handleSubmit}>
                 <div>
                   <Label>Full Name</Label>
                   <Input
                     type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
                     placeholder="Enter your full name"
                     className="mt-2"
                   />
@@ -61,6 +128,9 @@ const Register = () => {
                   <Label>Email Address</Label>
                   <Input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="Enter your email"
                     className="mt-2"
                   />
@@ -68,13 +138,23 @@ const Register = () => {
 
                 <div>
                   <Label>Phone Number</Label>
-                  <Input type="tel" placeholder="07XXXXXXXX" className="mt-2" />
+                  <Input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="07XXXXXXXX"
+                    className="mt-2"
+                  />
                 </div>
 
                 <div>
                   <Label>Password</Label>
                   <Input
                     type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
                     placeholder="Create a password"
                     className="mt-2"
                   />
@@ -84,20 +164,26 @@ const Register = () => {
                   <Label>Confirm Password</Label>
                   <Input
                     type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
                     placeholder="Confirm your password"
                     className="mt-2"
                   />
                 </div>
 
                 <div className="flex items-start gap-2">
-                  <input type="checkbox" className="mt-1" />
+                  <input type="checkbox" required className="mt-1" />
 
                   <p className="text-sm text-slate-600">
                     I agree to the Terms & Conditions and Privacy Policy.
                   </p>
                 </div>
 
-                <Button className="w-full h-11 bg-green-600 hover:bg-green-700">
+                <Button
+                  type="submit"
+                  className="w-full h-11 bg-green-600 hover:bg-green-700"
+                >
                   Create Account
                 </Button>
               </form>
