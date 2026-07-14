@@ -6,10 +6,10 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="bg-[#0F172A] text-white py-20 overflow-hidden"
+      className="bg-[#0F172A] text-white py-15 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="max-5-6xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
           {/* Left Content */}
           <div>
             <div className="inline-flex items-center gap-2 bg-orange-100 text-[#F97316] px-5 py-2 rounded-full font-semibold mb-8">
@@ -17,7 +17,7 @@ const Hero = () => {
               Kenya's Trusted Driving School
             </div>
 
-            <h1 className="text-5xl lg:text-7xl font-extrabold leading-tight">
+            <h1 className="text-4xl lg:text-6xl font-extrabold leading-tight">
               Master the Road
               <span className="block text-[#F97316]">With Confidence</span>
             </h1>
@@ -52,7 +52,7 @@ const Hero = () => {
             <img
               src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80"
               alt="Driving Lesson"
-              className="w-full h-[600px] object-cover rounded-3xl shadow-2xl"
+              className="w-full h-[450px] object-cover rounded-3xl shadow-2xl"
             />
           </div>
         </div>
