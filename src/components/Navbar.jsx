@@ -12,34 +12,35 @@ const navLinks = [
 
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 z-50 w-full bg-[#F8F6F2]/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+    <nav className="sticky top-0 z-50 w-full bg-white border-b border-slate-200 shadow-sm">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-[#234E3B] flex items-center justify-center shadow-md">
-            <CarFront className="w-6 h-6 text-[#C89B3C]" />
+          <div className="w-12 h-12 rounded-full bg-[#0F172A] flex items-center justify-center shadow-md">
+            <CarFront className="w-6 h-6 text-[#F97316]" />
           </div>
 
           <div>
-            <h1 className="text-2xl font-bold text-[#234E3B]">Next Gear</h1>
+            <h1 className="text-2xl font-bold text-[#0F172A]">Next Gear</h1>
 
-            <p className="text-xs text-gray-500 uppercase tracking-widest">
+            <p className="text-xs uppercase tracking-[3px] text-slate-500">
               Driving LMS
             </p>
           </div>
         </Link>
 
-        {/* Navigation Links */}
+        {/* Navigation */}
+
         <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <NavLink
               key={link.name}
               to={link.path}
               className={({ isActive }) =>
-                `text-[15px] font-semibold transition-all duration-300 ${
+                `font-semibold transition duration-300 ${
                   isActive
-                    ? "text-[#234E3B]"
-                    : "text-gray-700 hover:text-[#C89B3C]"
+                    ? "text-[#F97316]"
+                    : "text-slate-700 hover:text-[#F97316]"
                 }`
               }
             >
@@ -49,61 +50,51 @@ const Navbar = () => {
         </div>
 
         {/* Right Section */}
+
         <div className="flex items-center gap-3">
-          {/* Theme */}
-          <Button
-            variant="ghost"
-            size="icon"
-            disabled
-            className="rounded-full hover:bg-green-100"
-          >
-            <Moon className="w-5 h-5 text-[#234E3B]" />
+          <Button variant="ghost" size="icon" disabled className="rounded-full">
+            <Moon className="w-5 h-5 text-slate-700" />
           </Button>
 
-          {/* Courses */}
           <Link to="/courses">
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full hover:bg-green-100"
+              className="rounded-full hover:bg-slate-100"
             >
-              <BookOpen className="w-5 h-5 text-[#234E3B]" />
+              <BookOpen className="w-5 h-5 text-[#0F172A]" />
             </Button>
           </Link>
 
-          {/* Book Lesson */}
           <Link to="/booking">
             <Button
               variant="outline"
-              className="hidden xl:flex items-center gap-2 rounded-full border-[#234E3B] text-[#234E3B] hover:bg-[#234E3B] hover:text-white"
+              className="hidden xl:flex items-center gap-2 border-[#0F172A] text-[#0F172A] hover:bg-[#0F172A] hover:text-white rounded-full"
             >
               <CalendarDays className="w-4 h-4" />
               Book Lesson
             </Button>
           </Link>
 
-          {/* Contact */}
           <Link to="/contact">
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full hover:bg-green-100"
+              className="rounded-full hover:bg-slate-100"
             >
-              <Phone className="w-5 h-5 text-[#234E3B]" />
+              <Phone className="w-5 h-5 text-[#0F172A]" />
             </Button>
           </Link>
 
-          {/* Login */}
           <Link
             to="/login"
-            className="hidden md:block text-sm font-semibold text-gray-700 hover:text-[#234E3B] transition"
+            className="hidden md:block font-semibold text-slate-700 hover:text-[#F97316]"
           >
             Login
           </Link>
 
-          {/* Register */}
           <Link to="/register">
-            <Button className="bg-[#234E3B] hover:bg-[#18382A] text-white rounded-full px-7 py-6">
+            <Button className="bg-[#F97316] hover:bg-[#EA580C] text-white rounded-full px-7">
               Enroll Now
             </Button>
           </Link>
