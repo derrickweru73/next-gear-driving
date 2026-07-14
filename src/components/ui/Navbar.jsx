@@ -1,44 +1,45 @@
 import { Link, NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CarFront, Moon, BookOpen } from "lucide-react";
+import { CarFront, Moon, BookOpen, CalendarDays, Phone } from "lucide-react";
 
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "Courses", path: "/courses" },
-  { name: "Book Lesson", path: "/booking" },
-  { name: "Instructors", path: "/instructors" },
-  { name: "About", path: "/about" },
-  { name: "Contact", path: "/contact" },
+  { name: "Why Choose Us", path: "/why-us" },
+  { name: "Reviews", path: "/reviews" },
+  { name: "FAQs", path: "/faq" },
 ];
 
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
+    <nav className="sticky top-0 z-50 w-full bg-[#F8F6F2]/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-900">
-            <CarFront className="h-6 w-6 text-yellow-400" />
+          <div className="w-12 h-12 rounded-full bg-[#234E3B] flex items-center justify-center shadow-md">
+            <CarFront className="w-6 h-6 text-[#C89B3C]" />
           </div>
 
           <div>
-            <h1 className="text-xl font-bold text-blue-900">Next Gear</h1>
+            <h1 className="text-2xl font-bold text-[#234E3B]">Next Gear</h1>
 
-            <p className="text-xs text-slate-500">Driving LMS</p>
+            <p className="text-xs text-gray-500 uppercase tracking-widest">
+              Driving LMS
+            </p>
           </div>
         </Link>
 
-        {/* Navigation */}
+        {/* Navigation Links */}
         <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <NavLink
               key={link.name}
               to={link.path}
               className={({ isActive }) =>
-                `font-medium transition-colors duration-200 ${
+                `text-[15px] font-semibold transition-all duration-300 ${
                   isActive
-                    ? "text-yellow-500"
-                    : "text-slate-700 hover:text-blue-900"
+                    ? "text-[#234E3B]"
+                    : "text-gray-700 hover:text-[#C89B3C]"
                 }`
               }
             >
@@ -50,28 +51,59 @@ const Navbar = () => {
         {/* Right Section */}
         <div className="flex items-center gap-3">
           {/* Theme */}
-          <Button variant="ghost" size="icon" disabled>
-            <Moon className="h-5 w-5 text-slate-700" />
+          <Button
+            variant="ghost"
+            size="icon"
+            disabled
+            className="rounded-full hover:bg-green-100"
+          >
+            <Moon className="w-5 h-5 text-[#234E3B]" />
           </Button>
 
           {/* Courses */}
           <Link to="/courses">
-            <Button variant="ghost" size="icon">
-              <BookOpen className="h-5 w-5 text-blue-900" />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full hover:bg-green-100"
+            >
+              <BookOpen className="w-5 h-5 text-[#234E3B]" />
+            </Button>
+          </Link>
+
+          {/* Book Lesson */}
+          <Link to="/booking">
+            <Button
+              variant="outline"
+              className="hidden xl:flex items-center gap-2 rounded-full border-[#234E3B] text-[#234E3B] hover:bg-[#234E3B] hover:text-white"
+            >
+              <CalendarDays className="w-4 h-4" />
+              Book Lesson
+            </Button>
+          </Link>
+
+          {/* Contact */}
+          <Link to="/contact">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full hover:bg-green-100"
+            >
+              <Phone className="w-5 h-5 text-[#234E3B]" />
             </Button>
           </Link>
 
           {/* Login */}
           <Link
             to="/login"
-            className="hidden sm:block text-sm font-medium text-slate-700 hover:text-blue-900 transition"
+            className="hidden md:block text-sm font-semibold text-gray-700 hover:text-[#234E3B] transition"
           >
             Login
           </Link>
 
           {/* Register */}
           <Link to="/register">
-            <Button className="bg-green-600 hover:bg-green-700 text-white rounded-full px-6">
+            <Button className="bg-[#234E3B] hover:bg-[#18382A] text-white rounded-full px-7 py-6">
               Enroll Now
             </Button>
           </Link>
