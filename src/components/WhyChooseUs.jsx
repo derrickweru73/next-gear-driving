@@ -71,7 +71,7 @@ const WhyChooseUs = () => {
 
           <div className="relative">
             <img
-              src=" https://images.unsplash.com/photo-1527593167147-e9c94a5883e6?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="https://media.istockphoto.com/id/540525642/photo/road-or-traffic-signs.jpg?s=2048x2048&w=is&k=20&c=x1ybqc8NL-xPRSO7n5YtkJbFNSBJ9riSgX082FNRWvo="
               alt="Driving Lesson"
               className="rounded-3xl w-full h-[540px] object-cover shadow-xl"
             />
