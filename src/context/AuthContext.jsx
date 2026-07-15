@@ -6,24 +6,22 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("student");
+    const savedUser = localStorage.getItem("user");
 
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
   }, []);
 
-  const login = (student) => {
-    localStorage.setItem("student", JSON.stringify(student));
-    setUser(student);
+  const login = (userData) => {
+    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
   };
 
   const logout = () => {
-    localStorage.removeItem("student");
+    localStorage.removeItem("user");
     setUser(null);
   };
-
-  const isAuthenticated = !!user;
 
   return (
     <AuthContext.Provider
@@ -31,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         user,
         login,
         logout,
-        isAuthenticated,
+        isAuthenticated: !!user,
       }}
     >
       {children}
@@ -39,6 +37,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);
