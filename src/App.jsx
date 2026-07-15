@@ -1,3 +1,4 @@
+import TheoryLessons from "./pages/TheoryLessons";
 import React from "react";
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
@@ -15,6 +16,7 @@ function App() {
     <>
        <Navbar />
       <Routes>
+        <Route path="/theory-lessons" element={<TheoryLessons />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/why-us" element={<WhyChooseUs />} />
