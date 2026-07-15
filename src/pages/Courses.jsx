@@ -10,7 +10,8 @@ const courses = [
     duration: "6 Weeks",
     students: "250+",
     price: "18,000",
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900",
+    image:
+      "https://media.istockphoto.com/id/1462539708/photo/learner-driver-portrait.jpg?s=1024x1024&w=is&k=20&c=lve-J8OBYOLftOlwei9P4bG-W403MO779AtBOgamR6U=",
   },
   {
     id: 2,
@@ -32,7 +33,8 @@ const courses = [
     duration: "3 Weeks",
     students: "140+",
     price: "15,000",
-    image: "https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=900",
+    image:
+      "https://media.istockphoto.com/id/496398415/photo/accusing-driver-points-as-female-passenger-denies-everything.jpg?s=1024x1024&w=is&k=20&c=F6DtXrK0Cs_tTFYMH5ArLd88wLB0rUc-Ic8gNqVXweQ=",
   },
   {
     id: 4,
