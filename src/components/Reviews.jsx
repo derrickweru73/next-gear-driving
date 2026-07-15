@@ -5,7 +5,7 @@ const reviews = [
   {
     name: "Brian Mwangi",
     image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      "https://plus.unsplash.com/premium_photo-1677574622702-d93f29b3708b?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     course: "Beginner Driving",
     review:
       "The instructors were patient and professional. I passed my driving test on my first attempt.",
@@ -13,7 +13,7 @@ const reviews = [
   {
     name: "Faith Wanjiku",
     image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+      "https://plus.unsplash.com/premium_photo-1682088127783-19d007d5a92f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     course: "Automatic Driving",
     review:
       "Booking lessons online was easy and the practical sessions boosted my confidence.",
@@ -21,7 +21,7 @@ const reviews = [
   {
     name: "Kevin Otieno",
     image:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+      "https://media.istockphoto.com/id/157675342/photo/happy-teen-driver.jpg?s=1024x1024&w=is&k=20&c=TO6sA-ckkJJgmttr650TXC1nNo1v0CWXT_F63qCZP6o=",
     course: "Defensive Driving",
     review:
       "Excellent vehicles and friendly instructors. I highly recommend Next Gear.",
@@ -29,7 +29,7 @@ const reviews = [
   {
     name: "Mercy Njeri",
     image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80",
+      "https://media.istockphoto.com/id/2244719966/photo/asian-woman-driving-a-car.jpg?s=1024x1024&w=is&k=20&c=tSYJmg8hwJaVWG-saPf3j3CKb1aXD9DAzcdjLxZFJEU=",
     course: "Refresher Course",
     review:
       "The online theory lessons together with practical driving made learning enjoyable.",
