@@ -50,7 +50,7 @@ const Hero = () => {
           {/* Right Image */}
           <div>
             <img
-              src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80"
+              src="https://plus.unsplash.com/premium_photo-1683133959080-c34cc9fb2f73?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               alt="Driving Lesson"
               className="w-full h-[450px] object-cover rounded-3xl shadow-2xl"
             />
