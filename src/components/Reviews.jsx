@@ -1,119 +1,104 @@
 import React from "react";
-import { Star, Quote } from "lucide-react";
+import { Star } from "lucide-react";
 
-const testimonials = [
+const reviews = [
   {
-    id: 1,
-    name: "Brian Kiptoo",
-    role: "Beginner Driving Student",
-    image: "https://i.pravatar.cc/150?img=12",
+    name: "Brian Mwangi",
+    image:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+    course: "Beginner Driving",
     review:
-      "Next Gear Driving LMS made learning to drive enjoyable and stress-free. The instructors were patient, and I passed my driving test on my first attempt.",
-    rating: 5,
+      "The instructors were patient and professional. I passed my driving test on my first attempt.",
   },
   {
-    id: 2,
-    name: "Sarah Wanjiru",
-    role: "Automatic Driving Student",
-    image: "https://i.pravatar.cc/150?img=32",
+    name: "Faith Wanjiku",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+    course: "Automatic Driving",
     review:
-      "The online theory lessons and progress tracking kept me motivated. Booking practical lessons was simple, and the instructors were very supportive.",
-    rating: 5,
+      "Booking lessons online was easy and the practical sessions boosted my confidence.",
   },
   {
-    id: 3,
-    name: "David Otieno",
-    role: "Defensive Driving Student",
-    image: "https://i.pravatar.cc/150?img=56",
+    name: "Kevin Otieno",
+    image:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=80",
+    course: "Defensive Driving",
     review:
-      "Professional instructors, flexible schedules, and modern vehicles. I highly recommend Next Gear to anyone looking for quality driving lessons.",
-    rating: 5,
+      "Excellent vehicles and friendly instructors. I highly recommend Next Gear.",
+  },
+  {
+    name: "Mercy Njeri",
+    image:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80",
+    course: "Refresher Course",
+    review:
+      "The online theory lessons together with practical driving made learning enjoyable.",
   },
 ];
 
 const Reviews = () => {
   return (
-    <section id="reviews" className="bg-[#F8F6F2] py-24">
-      <div className="max-w-7xl mx-auto px-6">
+    <section
+      id="reviews"
+      className="py-8 lg:py-7 bg-gradient-to-b from-white to-[#F8FAFC]"
+    >
+      <div className="max-w-7xl mx-auto px-3">
         {/* Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-[#234E3B] font-semibold uppercase tracking-widest">
-            Testimonials
-          </span>
+        <div className="grid lg:grid-cols-2 gap-10 items-end mb-10">
+          <div>
+            <span className="text-[#F97316]  inline-block bg-orange-100 text-[#F97316] px-4 py-1 rounded-full text-sm font-semibold uppercase tracking-wide mb-3">
+              Student Testimonials
+            </span>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mt-4">
-            Hear From Our Successful Students
-          </h2>
+            <h2 className="text-4xl lg:text-5xl font-bold text-[#0F172A] mt-3 leading-tight">
+              Hear From Students Who
+              <span className="text-[#F97316]"> Passed With Confidence.</span>
+            </h2>
+          </div>
 
-          <p className="text-gray-600 mt-6 text-lg leading-8">
-            Our learners have successfully completed their driving training and
-            earned their licenses through Next Gear Driving LMS.
-          </p>
+          <div className="lg:pl-8 border-l-4 border-[#F97316]">
+            <p className="mt-2 text-gray-600 leading-7 text-base">
+              Thousands of learners across Kenya have trusted Next Gear Driving
+              LMS to prepare them for the road. Here are a few experiences from
+              our happy students.
+            </p>
+          </div>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {testimonials.map((item) => (
+        {/* Review Cards */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {reviews.map((review, index) => (
             <div
-              key={item.id}
-              className="bg-white rounded-3xl p-8 shadow-md hover:shadow-xl transition duration-300"
+              key={index}
+              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden"
             >
-              <Quote className="text-[#234E3B] mb-6" size={40} />
+              <img
+                src={review.image}
+                alt={review.name}
+                className="w-full h-40 object-top"
+              />
 
-              <p className="text-gray-600 leading-8 mb-8">"{item.review}"</p>
-
-              <div className="flex gap-1 mb-6">
-                {[...Array(item.rating)].map((_, index) => (
-                  <Star
-                    key={index}
-                    size={18}
-                    className="text-yellow-500 fill-yellow-500"
-                  />
-                ))}
-              </div>
-
-              <div className="flex items-center gap-4">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-16 h-16 rounded-full object-cover border-2 border-[#234E3B]"
-                />
-
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900">
-                    {item.name}
-                  </h3>
-
-                  <p className="text-gray-500 text-sm">{item.role}</p>
+              <div className="p-5">
+                <div className="flex text-[#F97316] mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={16} fill="currentColor" />
+                  ))}
                 </div>
+
+                <p className="text-gray-600 text-sm leading-6 italic">
+                  "{review.review}"
+                </p>
+
+                <hr className="my-4" />
+
+                <h3 className="font-bold text-[#0F172A]">{review.name}</h3>
+
+                <span className="text-[#F97316] text-sm font-medium">
+                  {review.course}
+                </span>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Bottom Summary */}
-        <div className="mt-20 bg-[#234E3B] rounded-3xl text-white p-10 text-center">
-          <h3 className="text-3xl font-bold">
-            Trusted by Thousands of Learners
-          </h3>
-
-          <p className="mt-4 text-green-100 max-w-2xl mx-auto">
-            Over 5,000 students have completed their driving lessons with Next
-            Gear Driving LMS and achieved an excellent first-time driving test
-            pass rate.
-          </p>
-
-          <div className="flex justify-center mt-6 gap-2">
-            {[...Array(5)].map((_, index) => (
-              <Star
-                key={index}
-                size={24}
-                className="fill-yellow-400 text-yellow-400"
-              />
-            ))}
-          </div>
-
-          <p className="mt-3 text-lg font-semibold">Average Rating: 4.9 / 5</p>
         </div>
       </div>
     </section>
