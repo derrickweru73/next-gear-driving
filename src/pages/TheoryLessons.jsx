@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import theoryLessons from "@/data/TheoryLessons";
+import theoryLessons from "../data/theoryLessonsData";
 import { BookOpen, Clock3, CheckCircle, Lock, PlayCircle } from "lucide-react";
 
 const TheoryLessons = () => {

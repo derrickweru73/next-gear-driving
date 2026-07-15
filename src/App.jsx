@@ -1,3 +1,4 @@
+import TheoryLessonDetails from "./pages/TheoryLessonsDetails";
 import TheoryLessons from "./pages/TheoryLessons";
 import React from "react";
 import Navbar from "./components/Navbar";
@@ -17,6 +18,7 @@ function App() {
        <Navbar />
       <Routes>
         <Route path="/theory-lessons" element={<TheoryLessons />} />
+        <Route path="/theory-lessons/:id" element={<TheoryLessonDetails />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/why-us" element={<WhyChooseUs />} />
