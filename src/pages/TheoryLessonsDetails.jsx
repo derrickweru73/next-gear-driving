@@ -1,10 +1,13 @@
 import { useParams, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import theoryLessons from "@/data/theoryLessonsData";
 import { ArrowLeft, Clock3, CheckCircle2, PlayCircle } from "lucide-react";
 
 const TheoryLessonDetails = () => {
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
 console.log(theoryLessons);
 console.log(Array.isArray(theoryLessons))
@@ -93,13 +96,10 @@ console.log(Array.isArray(theoryLessons))
         </div>
 
         <button
-          onClick={handleComplete}
-          disabled={completed}
-          className={`mt-12 w-full py-4 rounded-xl text-white font-semibold transition ${
-            completed ? "bg-green-600" : "bg-[#F97316] hover:bg-orange-600"
-          }`}
+          onClick={() => navigate("/theory-quiz")}
+          className="mt-12 w-full py-4 rounded-xl bg-[#F97316] text-white font-semibold hover:bg-orange-600"
         >
-          {completed ? "Lesson Completed" : "Mark Lesson Complete"}
+          Start Quiz
         </button>
       </div>
     </div>
