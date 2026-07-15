@@ -68,7 +68,7 @@ const Register = () => {
 
       alert("Registration successful!");
 
-      navigate("/student-dashboard");
+      navigate("/login");
     } catch (error) {
       console.error(error);
       alert("Registration failed.");
