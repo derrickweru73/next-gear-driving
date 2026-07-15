@@ -1,14 +1,21 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { CarFront } from "lucide-react";
+import { CarFront, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { registerStudent } from "@/services/AuthApi.js";
+import { registerUser } from "@/services/AuthApi";
+import { useAuth } from "@/context/AuthContext";
 
 const Register = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -44,164 +51,171 @@ const Register = () => {
       return;
     }
 
+    setLoading(true);
+
     try {
-      await registerStudent({
+      const newUser = {
         fullName: formData.fullName,
         email: formData.email,
         phone: formData.phone,
         password: formData.password,
         role: "student",
-      });
+      };
 
-      alert("Registration Successful!");
+      const user = await registerUser(newUser);
 
-      setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        password: "",
-        confirmPassword: "",
-      });
+      login(user);
 
-      navigate("/login");
+      alert("Registration successful!");
+
+      navigate("/student-dashboard");
     } catch (error) {
       console.error(error);
-      alert("Registration failed. Please try again.");
+      alert("Registration failed.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex items-center justify-center px-4 py-10">
-      <Card className="w-full max-w-6xl overflow-hidden rounded-3xl shadow-2xl">
-        <div className="grid md:grid-cols-2">
-          {/* Left Section */}
-          <div className="hidden md:flex flex-col justify-center bg-blue-900 text-white p-10">
-            <div className="flex items-center gap-3 mb-8">
-              <CarFront className="h-10 w-10 text-yellow-400" />
+    <section className="min-h-screen bg-[#F8F6F2] flex items-center justify-center px-4 py-10">
+      <Card className="w-full max-w-md rounded-3xl shadow-2xl border-0">
+        <CardContent className="p-8">
+          {/* Logo */}
 
-              <div>
-                <h1 className="text-3xl font-bold">Next Gear</h1>
-
-                <p className="text-yellow-400">Driving LMS</p>
-              </div>
+          <div className="flex flex-col items-center mb-8">
+            <div className="w-16 h-16 rounded-full bg-[#0F172A] flex items-center justify-center mb-4">
+              <CarFront className="w-8 h-8 text-[#F97316]" />
             </div>
 
-            <h2 className="text-4xl font-bold leading-tight mb-6">
-              Start Your
-              <br />
-              Driving Journey
-              <br />
-              Today.
+            <h1 className="text-3xl font-bold text-[#0F172A]">Next Gear</h1>
+
+            <p className="text-[#F97316] font-medium">Driving LMS</p>
+          </div>
+
+          {/* Heading */}
+
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-[#0F172A]">
+              Create Account
             </h2>
 
-            <p className="text-slate-300 text-lg leading-8">
-              Register as a student to access driving lessons, theory quizzes,
-              lesson booking and progress tracking.
+            <p className="text-gray-600 mt-2">
+              Join Next Gear Driving LMS today.
             </p>
           </div>
 
-          {/* Right Section */}
-          <CardContent className="p-8 md:p-12">
-            <div className="max-w-md mx-auto">
-              <h2 className="text-3xl font-bold text-slate-900">
-                Create Account
-              </h2>
+          {/* Form */}
 
-              <p className="text-slate-500 mt-2 mb-8">
-                Fill in your details below to get started.
-              </p>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <Label>Full Name</Label>
 
-              <form className="space-y-5" onSubmit={handleSubmit}>
-                <div>
-                  <Label>Full Name</Label>
-                  <Input
-                    type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    placeholder="Enter your full name"
-                    className="mt-2"
-                  />
-                </div>
+              <Input
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+                placeholder="Enter your full name"
+                className="mt-2"
+              />
+            </div>
 
-                <div>
-                  <Label>Email Address</Label>
-                  <Input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Enter your email"
-                    className="mt-2"
-                  />
-                </div>
+            <div>
+              <Label>Email Address</Label>
 
-                <div>
-                  <Label>Phone Number</Label>
-                  <Input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="07XXXXXXXX"
-                    className="mt-2"
-                  />
-                </div>
+              <Input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                className="mt-2"
+              />
+            </div>
 
-                <div>
-                  <Label>Password</Label>
-                  <Input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    placeholder="Create a password"
-                    className="mt-2"
-                  />
-                </div>
+            <div>
+              <Label>Phone Number</Label>
 
-                <div>
-                  <Label>Confirm Password</Label>
-                  <Input
-                    type="password"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    placeholder="Confirm your password"
-                    className="mt-2"
-                  />
-                </div>
+              <Input
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="07XXXXXXXX"
+                className="mt-2"
+              />
+            </div>
 
-                <div className="flex items-start gap-2">
-                  <input type="checkbox" required className="mt-1" />
+            <div>
+              <Label>Password</Label>
 
-                  <p className="text-sm text-slate-600">
-                    I agree to the Terms & Conditions and Privacy Policy.
-                  </p>
-                </div>
+              <div className="relative mt-2">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Create password"
+                  className="pr-12"
+                />
 
-                <Button
-                  type="submit"
-                  className="w-full h-11 bg-green-600 hover:bg-green-700"
+                <button
+                  type="button"
+                  className="absolute right-4 top-3 text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
                 >
-                  Create Account
-                </Button>
-              </form>
-
-              <div className="mt-8 text-center text-sm">
-                Already have an account?
-                <Link
-                  to="/login"
-                  className="ml-2 font-semibold text-blue-900 hover:text-yellow-500"
-                >
-                  Login
-                </Link>
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
               </div>
             </div>
-          </CardContent>
-        </div>
+
+            <div>
+              <Label>Confirm Password</Label>
+
+              <div className="relative mt-2">
+                <Input
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  placeholder="Confirm password"
+                  className="pr-12"
+                />
+
+                <button
+                  type="button"
+                  className="absolute right-4 top-3 text-gray-500"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff size={20} />
+                  ) : (
+                    <Eye size={20} />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-[#F97316] hover:bg-orange-600 text-white h-12 rounded-xl"
+            >
+              {loading ? "Creating Account..." : "Register"}
+            </Button>
+          </form>
+
+          <div className="text-center mt-8 text-sm text-gray-600">
+            Already have an account?
+            <Link
+              to="/login"
+              className="ml-2 text-[#F97316] font-semibold hover:underline"
+            >
+              Login
+            </Link>
+          </div>
+        </CardContent>
       </Card>
-    </div>
+    </section>
   );
 };
 
