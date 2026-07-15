@@ -1,82 +1,63 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, CarFront } from "lucide-react";
+import { ArrowRight, PhoneCall } from "lucide-react";
 
-const CTA = () => {
+const CallToAction = () => {
   return (
-    <section className="bg-[#234E3B] py-24">
+    <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-          <div className="grid lg:grid-cols-2 items-center">
-            {/* Left Content */}
-            <div className="p-10 md:p-16">
-              <div className="inline-flex items-center gap-2 bg-green-100 text-[#234E3B] px-4 py-2 rounded-full font-semibold mb-6">
-                <ShieldCheck size={18} />
-                Start Your Driving Journey Today
-              </div>
+        <div className="relative overflow-hidden rounded-[32px] bg-[#0F172A]">
+          {/* Background decoration */}
+          <div className="absolute -top-16 -right-16 w-72 h-72 rounded-full bg-[#F97316]/20"></div>
+          <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-[#F97316]/10"></div>
 
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-                Become a Safe,
-                <span className="text-[#234E3B]"> Confident Driver</span>
+          <div className="relative grid lg:grid-cols-2 gap-12 items-center p-10 lg:p-16">
+            {/* Left */}
+            <div>
+              <span className="inline-block bg-[#F97316] text-white px-4 py-2 rounded-full text-sm font-semibold">
+                Start Your Journey Today
+              </span>
+
+              <h2 className="text-4xl lg:text-5xl font-bold text-white mt-6 leading-tight">
+                Ready to Become a
+                <span className="text-[#F97316]"> Confident Driver?</span>
               </h2>
 
-              <p className="mt-6 text-lg text-gray-600 leading-8">
-                Join thousands of learners who have successfully completed their
-                driving lessons through Next Gear Driving LMS. Learn from
-                certified instructors, monitor your progress, and prepare for
-                your driving test with confidence.
+              <p className="text-gray-300 mt-6 text-lg leading-8 max-w-xl">
+                Join hundreds of successful students learning with certified
+                instructors using modern training vehicles. Book your first
+                lesson today and take the first step towards getting your
+                driving licence.
               </p>
-
-              <div className="flex flex-wrap gap-4 mt-10">
-                <Link
-                  to="/register"
-                  className="inline-flex items-center gap-2 bg-[#234E3B] hover:bg-[#18382A] text-white px-8 py-4 rounded-xl font-semibold transition"
-                >
-                  Enroll Now
-                  <ArrowRight size={18} />
-                </Link>
-
-                <Link
-                  to="/courses"
-                  className="inline-flex items-center gap-2 border-2 border-[#234E3B] text-[#234E3B] hover:bg-[#234E3B] hover:text-white px-8 py-4 rounded-xl font-semibold transition"
-                >
-                  View Courses
-                </Link>
-              </div>
             </div>
 
-            {/* Right Content */}
-            <div className="bg-[#F8F6F2] h-full flex items-center justify-center p-10">
-              <div className="text-center">
-                <div className="w-32 h-32 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-8">
-                  <CarFront size={70} className="text-[#234E3B]" />
-                </div>
+            {/* Right */}
+            <div className="bg-white rounded-3xl p-8 shadow-xl">
+              <h3 className="text-2xl font-bold text-[#0F172A]">
+                Book Your First Lesson
+              </h3>
 
-                <h3 className="text-3xl font-bold text-gray-900">
-                  Ready to Get Behind the Wheel?
-                </h3>
+              <p className="text-gray-600 mt-3 leading-7">
+                Secure your slot today and begin learning with experienced
+                instructors at your own pace.
+              </p>
 
-                <p className="text-gray-600 mt-4 max-w-sm mx-auto leading-7">
-                  Register today and take the first step towards earning your
-                  driving license with confidence.
-                </p>
+              <div className="mt-8 space-y-4">
+                <Link
+                  to="/booking"
+                  className="flex items-center justify-center gap-3 bg-[#F97316] hover:bg-orange-600 text-white py-4 rounded-xl font-semibold transition"
+                >
+                  Book a Lesson
+                  <ArrowRight size={20} />
+                </Link>
 
-                <div className="grid grid-cols-3 gap-6 mt-10">
-                  <div>
-                    <h4 className="text-2xl font-bold text-[#234E3B]">5K+</h4>
-                    <p className="text-sm text-gray-500">Students</p>
-                  </div>
-
-                  <div>
-                    <h4 className="text-2xl font-bold text-[#234E3B]">98%</h4>
-                    <p className="text-sm text-gray-500">Pass Rate</p>
-                  </div>
-
-                  <div>
-                    <h4 className="text-2xl font-bold text-[#234E3B]">15+</h4>
-                    <p className="text-sm text-gray-500">Years</p>
-                  </div>
-                </div>
+                <Link
+                  to="/contact"
+                  className="flex items-center justify-center gap-3 border-2 border-[#0F172A] text-[#0F172A] py-4 rounded-xl font-semibold hover:bg-[#0F172A] hover:text-white transition"
+                >
+                  <PhoneCall size={20} />
+                  Contact Us
+                </Link>
               </div>
             </div>
           </div>
@@ -86,4 +67,4 @@ const CTA = () => {
   );
 };
 
-export default CTA;
+export default CallToAction;
