@@ -1,105 +1,92 @@
 import React from "react";
-import {
-  ShieldCheck,
-  CalendarClock,
-  Car,
-  GraduationCap,
-  BookOpen,
-  Award,
-} from "lucide-react";
+import { ShieldCheck, CalendarClock, BookOpen } from "lucide-react";
 
 const features = [
   {
-    icon: <ShieldCheck className="w-8 h-8 text-[#234E3B]" />,
-    title: "Certified Instructors",
+    icon: <ShieldCheck className="w-6 h-6 text-[#F97316]" />,
+    title: "Certified Driving Instructors",
     description:
-      "Learn from experienced instructors dedicated to helping you become a safe and confident driver.",
+      "Train with NTSA-certified instructors who guide you from your first lesson to your driving test.",
   },
   {
-    icon: <CalendarClock className="w-8 h-8 text-[#234E3B]" />,
+    icon: <CalendarClock className="w-6 h-6 text-[#F97316]" />,
     title: "Flexible Lesson Scheduling",
     description:
-      "Book practical driving lessons at times that suit your personal schedule.",
+      "Choose morning, evening or weekend driving lessons that fit your school or work timetable.",
   },
   {
-    icon: <BookOpen className="w-8 h-8 text-[#234E3B]" />,
-    title: "Interactive Theory Learning",
+    icon: <BookOpen className="w-6 h-6 text-[#F97316]" />,
+    title: "Interactive Theory Classes",
     description:
-      "Study road signs, traffic rules, and mock exams anytime through our online learning platform.",
-  },
-  {
-    icon: <Car className="w-8 h-8 text-[#234E3B]" />,
-    title: "Modern Training Vehicles",
-    description:
-      "Practice using well-maintained manual and automatic vehicles equipped with dual controls.",
-  },
-  {
-    icon: <GraduationCap className="w-8 h-8 text-[#234E3B]" />,
-    title: "Progress Tracking",
-    description:
-      "Track completed lessons, quizzes, and your driving performance in one dashboard.",
-  },
-  {
-    icon: <Award className="w-8 h-8 text-[#234E3B]" />,
-    title: "High Success Rate",
-    description:
-      "Thousands of students have successfully earned their driving licenses through Next Gear.",
+      "Practice mock tests, road signs and driving theory online before your practical lessons.",
   },
 ];
 
 const WhyChooseUs = () => {
   return (
-    <section id="why-us" className="bg-white py-24">
+    <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Heading */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-[#234E3B] font-semibold uppercase tracking-wider">
-            Why Choose Us
-          </span>
-
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mt-4">
-            Learn From a Driving School You Can Trust
-          </h2>
-
-          <p className="text-gray-600 mt-6 text-lg leading-8">
-            Next Gear Driving LMS combines expert instructors, flexible
-            scheduling, and modern learning tools to provide a complete driving
-            education experience.
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Image */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* LEFT SIDE */}
           <div>
-            <img
-              src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?auto=format&fit=crop&w=900&q=80"
-              alt="Driving Lesson"
-              className="rounded-3xl shadow-xl w-full h-[650px] object-cover"
-            />
+            <span className="inline-block bg-orange-100 text-[#F97316] px-5 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
+              Why Choose Next Gear?
+            </span>
+
+            <h2 className="text-5xl font-bold text-[#0F172A] mt-6 leading-tight">
+              Learn Driving with Confidence &
+              <span className="text-[#F97316]"> Safety</span>
+            </h2>
+
+            <p className="text-gray-600 text-lg leading-8 mt-6 mb-10">
+              We don't just prepare you to pass your driving test—we prepare you
+              to become a responsible, confident and safe driver for life.
+            </p>
+
+            <div className="space-y-5">
+              {features.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-start gap-5 bg-[#F8FAFC] rounded-2xl p-5 shadow-sm hover:shadow-lg transition"
+                >
+                  <div className="w-14 h-14 rounded-xl bg-orange-100 flex items-center justify-center flex-shrink-0">
+                    {item.icon}
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold text-[#0F172A]">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-gray-600 mt-2 leading-7">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Features */}
-          <div className="grid gap-6">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="bg-[#F8F6F2] rounded-2xl p-6 shadow-sm hover:shadow-lg transition duration-300 flex gap-5"
-              >
-                <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                  {feature.icon}
-                </div>
+          {/* RIGHT SIDE */}
 
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900">
-                    {feature.title}
-                  </h3>
+          <div className="relative">
+            <img
+              src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=900&q=80"
+              alt="Driving Lesson"
+              className="rounded-3xl w-full h-[540px] object-cover shadow-xl"
+            />
 
-                  <p className="text-gray-600 mt-2 leading-7">
-                    {feature.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+            {/* Floating Quote */}
+
+            <div className="absolute bottom-6 left-6 bg-[#F97316] text-white rounded-xl px-6 py-4 max-w-xs shadow-xl">
+              <p className="italic">
+                "Safe driving begins with proper training."
+              </p>
+
+              <span className="block mt-2 text-sm font-semibold">
+                — Lead Instructor
+              </span>
+            </div>
           </div>
         </div>
       </div>
