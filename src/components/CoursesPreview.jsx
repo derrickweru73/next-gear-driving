@@ -43,7 +43,7 @@ const courses = [
 
 const CoursesPreview = () => {
   return (
-    <section id="courses" className="bg-[#F8FAFC] py-16">
+    <section id="courses" className="bg-[#F8FAFC] py-12">
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
 

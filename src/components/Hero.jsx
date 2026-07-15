@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="bg-[#0F172A] text-white py-15 overflow-hidden"
+      className="bg-[#0F172A] text-white py-12 overflow-hidden"
     >
       <div className="max-5-6xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-10 items-center">

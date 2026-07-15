@@ -33,7 +33,7 @@ const FAQs = () => {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="faqs" className="py-20 bg-white">
+    <section id="faqs" className="py-12 bg-white">
       <div className="max-w-7xl mx-auto px-6">
 
         <div className="grid lg:grid-cols-2 gap-16">

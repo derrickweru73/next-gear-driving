@@ -4,7 +4,7 @@ import { ArrowRight, PhoneCall } from "lucide-react";
 
 const CallToAction = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="relative overflow-hidden rounded-[32px] bg-[#0F172A]">
           {/* Background decoration */}

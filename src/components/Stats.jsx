@@ -34,7 +34,7 @@ const stats = [
 
 const Stats = () => {
   return (
-    <section className="bg-[#F8FAFC] py-20">
+    <section className="bg-[#F8FAFC] py-12">
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
 
