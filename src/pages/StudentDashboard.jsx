@@ -61,7 +61,7 @@ useEffect(() => {
           </Link>
 
           <Link
-            to="/book-lesson"
+            to="/practical-lessons"
             className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
           >
             <CalendarDays size={20} />
@@ -219,7 +219,7 @@ useEffect(() => {
               </p>
 
               <Link
-                to={theoryResult?.passed ? "/book-lesson" : "/theory-lessons"}
+                to={theoryResult?.passed ? "/practical-lessons" : "/theory-lessons"}
                 className="inline-block mt-6 bg-[#F97316] hover:bg-orange-600 text-white px-6 py-3 rounded-xl font-semibold"
               >
                 {theoryResult?.passed
