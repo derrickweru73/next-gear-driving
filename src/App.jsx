@@ -18,6 +18,7 @@ import WhyChooseUs from "./components/WhyChooseUs";
 import FAQ from "./components/FAQ";
 import Courses from "./pages/Courses";
 import EnrollmentForm from "./pages/EnrollmentForm";
+import Payment from "./pages/Payment";
 function App() {
   return (
     <>
@@ -47,6 +48,7 @@ function App() {
              < EnrollmentForm/>
         </ProtectedRoute> 
         } />
+        <Route path="/payment" element={<ProtectedRoute>< Payment/></ProtectedRoute> } />
        
         
       </Routes>

@@ -7,8 +7,10 @@ const Payment = () => {
   const enrollment = JSON.parse(localStorage.getItem("studentEnrollment"));
 
   const handlePayment = () => {
+    // save payment completion status
     localStorage.setItem("paymentCompleted", "true");
 
+    // redirect students  to the dashboard
     navigate("/student-dashboard");
   };
 

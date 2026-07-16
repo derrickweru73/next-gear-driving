@@ -27,7 +27,7 @@ const EnrollmentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+// save enrollment details before proceeding to payment
     localStorage.setItem("studentEnrollment", JSON.stringify(formData));
 
     navigate("/payment");
