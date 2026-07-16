@@ -7,7 +7,7 @@ const courses = [
     id: 1,
     title: "Beginner Driving",
     image:
-      "https://images.unsplash.com/photo-1517520287167-4bbf64a00d66?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1615312306069-81980a7c3b23?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     duration: "6 Weeks",
     rating: "4.9",
     price: "KES 18,000",
@@ -16,7 +16,7 @@ const courses = [
     id: 2,
     title: "Automatic Driving",
     image:
-      "https://images.unsplash.com/photo-1520050206274-a1ae44613e6d?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1748434683023-c1326f50fba0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     duration: "5 Weeks",
     rating: "5.0",
     price: "KES 20,000",
@@ -25,7 +25,7 @@ const courses = [
     id: 3,
     title: "Defensive Driving",
     image:
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1575276970982-642152075726?q=80&w=1979&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     duration: "4 Weeks",
     rating: "4.8",
     price: "KES 15,000",
@@ -34,7 +34,7 @@ const courses = [
     id: 4,
     title: "Refresher Course",
     image:
-      "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1721993873174-3a304ed1ec1a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     duration: "2 Weeks",
     rating: "4.9",
     price: "KES 10,000",
