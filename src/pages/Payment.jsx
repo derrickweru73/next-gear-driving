@@ -21,7 +21,7 @@ const Payment = () => {
 
      alert(`Payment successful using ${selectedMethod}!`);
 
-     navigate("/student-dashboard");
+     navigate("/payment-success");
    };
 
   if (!enrollment) {
