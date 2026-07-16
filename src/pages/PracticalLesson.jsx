@@ -69,7 +69,7 @@ const PracticalLessons = () => {
             <div className="mt-8">
               {lesson.status === "Available" ? (
                 <Link
-                  to={`/book-lesson/${lesson.id}`}
+                  to={`/practical-lessons/${lesson.id}`}
                   className="block text-center bg-[#F97316] text-white rounded-xl py-3 hover:bg-orange-600"
                 >
                   Book Lesson
