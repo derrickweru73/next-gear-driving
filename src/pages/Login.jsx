@@ -50,7 +50,7 @@ const Login = () => {
 
       switch (user.role) {
         case "student":
-          navigate("/student-dashboard");
+          navigate("/");
           break;
 
         case "instructor":
