@@ -1,3 +1,4 @@
+import PracticalLessons from "./pages/PracticalLesson";
 import TheoryLessonDetails from "./pages/TheoryLessonsDetails";
 import TheoryResults from "./pages/TheoryResults";
 import TheoryQuiz from "./pages/TheoryQuiz";
@@ -19,6 +20,7 @@ function App() {
     <>
        <Navbar />
       <Routes>
+        <Route path="/practical-lessons" element={<PracticalLessons />} />
         <Route path="/theory-results" element={<TheoryResults />} />
         <Route path="/theory-quiz" element={<TheoryQuiz />} />
         <Route path="/theory-lessons" element={<TheoryLessons />} />
