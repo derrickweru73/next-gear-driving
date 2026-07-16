@@ -1,4 +1,5 @@
 import TheoryLessonDetails from "./pages/TheoryLessonsDetails";
+import TheoryResults from "./pages/TheoryResults";
 import TheoryQuiz from "./pages/TheoryQuiz";
 import TheoryLessons from "./pages/TheoryLessons";
 import React from "react";
@@ -18,6 +19,7 @@ function App() {
     <>
        <Navbar />
       <Routes>
+        <Route path="/theory-results" element={<TheoryResults />} />
         <Route path="/theory-quiz" element={<TheoryQuiz />} />
         <Route path="/theory-lessons" element={<TheoryLessons />} />
         <Route path="/theory-lessons/:id" element={<TheoryLessonDetails />} />
