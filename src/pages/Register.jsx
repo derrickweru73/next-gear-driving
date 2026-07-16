@@ -62,13 +62,20 @@ const Register = () => {
         role: "student",
       };
 
-      const user = await registerUser(newUser);
+       const user = await registerUser(newUser);
 
-      login(user);
+       // Save registered students for Admin Dashboard
+       const students = JSON.parse(localStorage.getItem("students")) || [];
 
-      alert("Registration successful!");
+       students.push(newUser);
 
-      navigate("/login");
+       localStorage.setItem("students", JSON.stringify(students));
+
+       login(user);
+
+       alert("Registration successful!");
+
+       navigate("/login");
     } catch (error) {
       console.error(error);
       alert("Registration failed.");

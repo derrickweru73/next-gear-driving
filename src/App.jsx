@@ -20,6 +20,7 @@ import Courses from "./pages/Courses";
 import EnrollmentForm from "./pages/EnrollmentForm";
 import Payment from "./pages/Payment";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import AdminDashboard from "./pages/AdminDashboard";
 function App() {
   return (
     <>
@@ -39,9 +40,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Home />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/enrollment" element={<EnrollmentForm />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
+
 
         <Route path="/student-dashboard" element={
           <ProtectedRoute>
