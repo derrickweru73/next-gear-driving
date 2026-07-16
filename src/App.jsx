@@ -17,11 +17,13 @@ import Reviews from "./components/Reviews";
 import WhyChooseUs from "./components/WhyChooseUs";
 import FAQ from "./components/FAQ";
 import Courses from "./pages/Courses";
+import EnrollmentForm from "./pages/EnrollmentForm";
 function App() {
   return (
     <>
        <Navbar />
       <Routes>
+        <Route path="/enrollmentform" element={<EnrollmentForm/>} />
         <Route path="/booking-lesson/:id" element={<BookingForm />} />
         <Route path="/practical-lessons/:id" element={<PracticalLessonDetails />} />
         <Route path="/practical-lessons" element={<PracticalLessons />} />
