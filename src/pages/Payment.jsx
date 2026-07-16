@@ -1,18 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import { CreditCard, Smartphone, Landmark } from "lucide-react";
+import { useState } from "react";
 
 const Payment = () => {
   const navigate = useNavigate();
 
   const enrollment = JSON.parse(localStorage.getItem("studentEnrollment"));
 
-  const handlePayment = () => {
-    // save payment completion status
-    localStorage.setItem("paymentCompleted", "true");
+  const [selectedMethod, setSelectedMethod] = useState("");
 
-    // redirect students  to the dashboard
-    navigate("/student-dashboard");
-  };
+
+   const handlePayment = () => {
+     if (!selectedMethod) {
+       alert("Please select a payment method.");
+       return;
+     }
+
+     localStorage.setItem("paymentMethod", selectedMethod);
+     localStorage.setItem("paymentCompleted", "true");
+
+     alert(`Payment successful using ${selectedMethod}!`);
+
+     navigate("/student-dashboard");
+   };
 
   if (!enrollment) {
     return (
@@ -21,6 +31,9 @@ const Payment = () => {
       </div>
     );
   }
+
+ 
+
 
   return (
     <div className="min-h-screen bg-[#F8F6F2] py-12 px-6">
@@ -65,18 +78,39 @@ const Payment = () => {
           <h2 className="text-2xl font-bold mb-6">Payment Methods</h2>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="border rounded-xl p-6 text-center">
+            <div
+              onClick={() => setSelectedMethod("M-Pesa")}
+              className={`cursor-pointer rounded-xl p-6 text-center border transition ${
+                selectedMethod === "M-Pesa"
+                  ? "border-[#F97316] bg-orange-50"
+                  : "border-gray-300"
+              }`}
+            >
               <Smartphone className="mx-auto text-green-600" size={40} />
               <h3 className="font-bold mt-4">M-Pesa</h3>
               <p className="text-gray-500 mt-2">Paybill: 123456</p>
             </div>
 
-            <div className="border rounded-xl p-6 text-center">
+            <div
+              onClick={() => setSelectedMethod("Card")}
+              className={`cursor-pointer rounded-xl p-6 text-center border transition ${
+                selectedMethod === "Card"
+                  ? "border-[#F97316] bg-orange-50"
+                  : "border-gray-300"
+              }`}
+            >
               <CreditCard className="mx-auto text-blue-600" size={40} />
               <h3 className="font-bold mt-4">Debit / Credit Card</h3>
             </div>
 
-            <div className="border rounded-xl p-6 text-center">
+            <div
+              onClick={() => setSelectedMethod("Bank")}
+              className={`cursor-pointer rounded-xl p-6 text-center border transition ${
+                selectedMethod === "Bank"
+                  ? "border-[#F97316] bg-orange-50"
+                  : "border-gray-300"
+              }`}
+            >
               <Landmark className="mx-auto text-[#0F172A]" size={40} />
               <h3 className="font-bold mt-4">Bank Transfer</h3>
             </div>
