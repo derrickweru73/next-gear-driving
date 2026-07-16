@@ -32,7 +32,7 @@ const Hero = () => {
 
             <div className="flex flex-wrap gap-5 mt-10">
               <Link
-                to={isAuthenticated ? "/enrollment" : "/login"}
+                to={isAuthenticated ? "/enrollment" : "/register"}
                 className="bg-[#F97316] hover:bg-[#EA580C] px-8 py-4 rounded-xl font-semibold flex items-center gap-2 transition"
               >
                 Enroll Now

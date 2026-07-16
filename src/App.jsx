@@ -38,17 +38,16 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Home />} />
+        <Route path="/enrollment" element={<EnrollmentForm />} />
+        <Route path="/payment" element={<Payment />} />
+
         <Route path="/student-dashboard" element={
           <ProtectedRoute>
              < StudentDashboard/>
         </ProtectedRoute> 
         } />
-        <Route path="/enrollment" element={
-           <ProtectedRoute>
-             < EnrollmentForm/>
-        </ProtectedRoute> 
-        } />
-        <Route path="/payment" element={<ProtectedRoute>< Payment/></ProtectedRoute> } />
+         
+        
        
         
       </Routes>
