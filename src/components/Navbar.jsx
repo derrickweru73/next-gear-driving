@@ -16,6 +16,8 @@ const navLinks = [
    const { isAuthenticated, logout } = useAuth();
    const navigate = useNavigate();
 
+   const paymentCompleted = localStorage.getItem("paymentCompleted") === "true"
+
    const handleLogout = () => {
      logout();
      navigate("/login");
@@ -100,15 +102,19 @@ const navLinks = [
                <Phone className="w-5 h-5 text-[#0F172A]" />
              </Button>
            </Link>
+          
 
+          {/* checks logged in but not paid  logout is shown ,logged in and paid(dashb & logoout are shown) and not logged in (login & register are shown)  */}
            {isAuthenticated ? (
              <>
-               <Link
-                 to="/student-dashboard"
-                 className="hidden md:block font-semibold text-slate-700 hover:text-[#F97316]"
-               >
-                 Dashboard
-               </Link>
+               {paymentCompleted && (
+                 <Link
+                   to="/student-dashboard"
+                   className="hidden md:block font-semibold text-slate-700 hover:text-[#F97316]"
+                 >
+                   Dashboard
+                 </Link>
+               )}
 
                <Button
                  onClick={handleLogout}
