@@ -22,7 +22,7 @@ function App() {
     <>
        <Navbar />
       <Routes>
-        <Route path="/booking-lessons/:id" element={<BookingForm />} />
+        <Route path="/booking-lesson/:id" element={<BookingForm />} />
         <Route path="/practical-lessons/:id" element={<PracticalLessonDetails />} />
         <Route path="/practical-lessons" element={<PracticalLessons />} />
         <Route path="/theory-results" element={<TheoryResults />} />

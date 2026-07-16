@@ -72,7 +72,7 @@ const PracticalLessons = () => {
                   to={`/practical-lessons/${lesson.id}`}
                   className="block text-center bg-[#F97316] text-white rounded-xl py-3 hover:bg-orange-600"
                 >
-                  Book Lesson
+                  View Lesson
                 </Link>
               ) : (
                 <button

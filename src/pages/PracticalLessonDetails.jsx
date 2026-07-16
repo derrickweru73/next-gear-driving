@@ -85,7 +85,7 @@ const PracticalLessonDetails = () => {
         </div>
 
         <Link
-          to={`/book-lesson/${lesson.id}`}
+          to={`/booking-lesson/${lesson.id}`}
           className="inline-block mt-12 bg-[#F97316] hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-semibold"
         >
           Proceed to Booking
