@@ -23,7 +23,6 @@ function App() {
     <>
        <Navbar />
       <Routes>
-        <Route path="/enrollmentform" element={<EnrollmentForm/>} />
         <Route path="/booking-lesson/:id" element={<BookingForm />} />
         <Route path="/practical-lessons/:id" element={<PracticalLessonDetails />} />
         <Route path="/practical-lessons" element={<PracticalLessons />} />
@@ -41,6 +40,11 @@ function App() {
         <Route path="/student-dashboard" element={
           <ProtectedRoute>
              < StudentDashboard/>
+        </ProtectedRoute> 
+        } />
+        <Route path="/enrollment" element={
+           <ProtectedRoute>
+             < EnrollmentForm/>
         </ProtectedRoute> 
         } />
        

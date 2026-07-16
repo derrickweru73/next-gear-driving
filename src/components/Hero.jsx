@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, PlayCircle, ShieldCheck } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const Hero = () => {
+  const { isAuthenticated } = useAuth();
   return (
     <section
       id="home"
@@ -30,7 +32,7 @@ const Hero = () => {
 
             <div className="flex flex-wrap gap-5 mt-10">
               <Link
-                to="/register"
+                to={isAuthenticated ? "/enrollment" : "/login"}
                 className="bg-[#F97316] hover:bg-[#EA580C] px-8 py-4 rounded-xl font-semibold flex items-center gap-2 transition"
               >
                 Enroll Now
