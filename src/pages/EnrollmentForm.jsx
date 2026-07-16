@@ -30,7 +30,7 @@ const EnrollmentForm = () => {
 
     localStorage.setItem("studentEnrollment", JSON.stringify(formData));
 
-    navigate("/payments");
+    navigate("/payment");
   };
 
   return (
