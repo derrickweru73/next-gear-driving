@@ -1,6 +1,8 @@
 import { Link, NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CarFront, Moon, BookOpen, CalendarDays, Phone } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -9,6 +11,15 @@ const navLinks = [
   { name: "Reviews", path: "/reviews" },
   { name: "FAQs", path: "/faq" },
 ];
+
+const { isAuthenticated, logout } = useAuth();
+const navigate = useNavigate();
+
+const handleLogout = () => {
+  logout();
+  navigate("/login");
+};
+
 
 const Navbar = () => {
   return (
