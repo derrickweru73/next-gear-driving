@@ -44,7 +44,7 @@ const CallToAction = () => {
 
               <div className="mt-8 space-y-4">
                 <Link
-                  to="/booking"
+                  to="/login"
                   className="flex items-center justify-center gap-3 bg-[#F97316] hover:bg-orange-600 text-white py-4 rounded-xl font-semibold transition"
                 >
                   Book a Lesson
