@@ -1,0 +1,141 @@
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import practicalLessons from "@/data/practicalLessons";
+
+const BookingForm = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const lesson = practicalLessons.find((item) => item.id === Number(id));
+
+  const [booking, setBooking] = useState({
+    date: "",
+    time: "",
+    transmission: "",
+    vehicle: "",
+    notes: "",
+  });
+
+  const handleChange = (e) => {
+    setBooking({
+      ...booking,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    localStorage.setItem(
+      "lessonBooking",
+      JSON.stringify({
+        lesson,
+        ...booking,
+        status: "Pending Payment",
+      }),
+    );
+
+    navigate("/payments");
+  };
+
+  return (
+    <div className="min-h-screen bg-[#F8F6F2] px-8 py-12">
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-10">
+        <h1 className="text-4xl font-bold text-[#0F172A]">
+          Book Practical Lesson
+        </h1>
+
+        <p className="text-gray-600 mt-2">
+          Complete the booking details below.
+        </p>
+
+        <div className="mt-8 bg-slate-50 rounded-xl p-6">
+          <h2 className="text-2xl font-semibold">{lesson.title}</h2>
+
+          <p className="mt-2 text-gray-600">Duration: {lesson.duration}</p>
+
+          <p className="text-gray-600">Location: {lesson.location}</p>
+        </div>
+
+        <form
+          onSubmit={handleSubmit}
+          className="grid md:grid-cols-2 gap-6 mt-8"
+        >
+          <div>
+            <label className="font-medium">Preferred Date</label>
+
+            <input
+              type="date"
+              name="date"
+              onChange={handleChange}
+              required
+              className="w-full border rounded-xl p-3 mt-2"
+            />
+          </div>
+
+          <div>
+            <label className="font-medium">Preferred Time</label>
+
+            <input
+              type="time"
+              name="time"
+              onChange={handleChange}
+              required
+              className="w-full border rounded-xl p-3 mt-2"
+            />
+          </div>
+
+          <div>
+            <label className="font-medium">Transmission</label>
+
+            <select
+              name="transmission"
+              onChange={handleChange}
+              required
+              className="w-full border rounded-xl p-3 mt-2"
+            >
+              <option value="">Select</option>
+              <option>Manual</option>
+              <option>Automatic</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="font-medium">Training Vehicle</label>
+
+            <select
+              name="vehicle"
+              onChange={handleChange}
+              required
+              className="w-full border rounded-xl p-3 mt-2"
+            >
+              <option value="">Select Vehicle</option>
+              <option>Toyota Vitz</option>
+              <option>Toyota Axio</option>
+              <option>Mazda Demio</option>
+            </select>
+          </div>
+
+          <div className="md:col-span-2">
+            <label className="font-medium">Additional Notes</label>
+
+            <textarea
+              name="notes"
+              rows="4"
+              onChange={handleChange}
+              className="w-full border rounded-xl p-3 mt-2"
+            />
+          </div>
+
+          <div className="md:col-span-2">
+            <button className="w-full bg-[#F97316] hover:bg-orange-600 text-white py-4 rounded-xl font-semibold">
+              Continue to Payment
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default BookingForm;

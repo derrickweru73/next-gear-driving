@@ -3,6 +3,7 @@ import PracticalLessons from "./pages/PracticalLesson";
 import TheoryLessonDetails from "./pages/TheoryLessonsDetails";
 import TheoryResults from "./pages/TheoryResults";
 import TheoryQuiz from "./pages/TheoryQuiz";
+import BookingForm from "./pages/BookingForm";
 import TheoryLessons from "./pages/TheoryLessons";
 import React from "react";
 import Navbar from "./components/Navbar";
@@ -21,6 +22,7 @@ function App() {
     <>
        <Navbar />
       <Routes>
+        <Route path="/booking-lessons/:id" element={<BookingForm />} />
         <Route path="/practical-lessons/:id" element={<PracticalLessonDetails />} />
         <Route path="/practical-lessons" element={<PracticalLessons />} />
         <Route path="/theory-results" element={<TheoryResults />} />
