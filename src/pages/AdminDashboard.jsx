@@ -21,6 +21,7 @@ const AdminDashboard = () => {
   const { logout } = useAuth();
 
   const [students, setStudents] = useState([]);
+  const [pendingEnrollments, setPendingEnrollments] = useState([]);
 
   const [lessonCount, setLessonCount] = useState(0);
   const [bookingCount, setBookingCount] = useState(0);
@@ -60,37 +61,63 @@ const AdminDashboard = () => {
     setRecentActivity(activity.reverse());
   }, []);
 
-   const loadStudents = async () => {
-     const data = await getUsers();
-     setStudents(data);
-   };
+    const loadStudents = async () => {
+      const data = await getUsers();
+      setStudents(data);
 
-     const approveStudent = async (id) => {
-       try {
-         // Update MockAPI
-         const response = await axios.patch(
-           `https://6a5608ffb17de7bebbddbc73.mockapi.io/api/users/${id}`,
-           {
-             enrolled: true,
-           },
-         );
+      const pending =
+        JSON.parse(localStorage.getItem("pendingEnrollments")) || [];
 
-         // If this student is currently logged in,
-         // update the saved login session too.
-         const loggedUser = JSON.parse(localStorage.getItem("user"));
+      setPendingEnrollments(pending);
+    };
 
-         if (loggedUser && loggedUser.id === response.data.id) {
-           localStorage.setItem("user", JSON.stringify(response.data));
-         }
+      const approveStudent = async (id) => {
+        try {
+          const response = await axios.patch(
+            `https://6a5608ffb17de7bebbddbc73.mockapi.io/api/users/${id}`,
+            {
+              enrolled: true,
+            },
+          );
 
-         alert("Student approved successfully!");
+          // Update logged-in user if it's the same student
+          const currentUser = JSON.parse(localStorage.getItem("user"));
 
-         loadStudents();
-       } catch (error) {
-         console.error(error);
-         alert("Approval failed.");
-       }
-     };
+          if (currentUser && currentUser.id === response.data.id) {
+            localStorage.setItem("user", JSON.stringify(response.data));
+          }
+
+          // Remove from pending enrollments
+          const pending =
+            JSON.parse(localStorage.getItem("pendingEnrollments")) || [];
+
+          const updatedPending = pending.filter(
+            (student) => student.email !== response.data.email,
+          );
+
+          localStorage.setItem(
+            "pendingEnrollments",
+            JSON.stringify(updatedPending),
+          );
+
+          // Save recent activity
+          const activities =
+            JSON.parse(localStorage.getItem("recentActivities")) || [];
+
+          activities.unshift(
+            `${response.data.fullName} was approved by the administrator`,
+          );
+
+          localStorage.setItem("recentActivities", JSON.stringify(activities));
+
+          alert("Student approved successfully!");
+
+          loadStudents();
+        } catch (error) {
+          console.error(error);
+          alert("Approval failed.");
+        }
+      };
 
    const handleLogout = () => {
      logout();
@@ -203,7 +230,7 @@ const AdminDashboard = () => {
           <h2 className="text-2xl font-bold mb-6">Student Enrollment</h2>
 
           <div className="space-y-4">
-            {students.map((student) => (
+            {pendingEnrollments.map((student) => (
               <div
                 key={student.id}
                 className="flex justify-between items-center border p-4 rounded-xl"
@@ -220,7 +247,7 @@ const AdminDashboard = () => {
 
                 {!student.enrolled && (
                   <button
-                    onClick={() => approveStudent(student.id)}
+                    onClick={() => approveStudent(student.userId)}
                     className="bg-green-600 text-white px-5 py-2 rounded-lg"
                   >
                     Approve

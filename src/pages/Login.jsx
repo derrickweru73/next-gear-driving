@@ -26,55 +26,51 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+   const handleSubmit = async (e) => {
+     e.preventDefault();
 
-    if (!formData.email || !formData.password) {
-      alert("Please fill in all fields.");
-      return;
-    }
+     if (!formData.email || !formData.password) {
+       alert("Please fill in all fields.");
+       return;
+     }
 
-    setLoading(true);
+     setLoading(true);
 
-    try {
-      const user = await loginUser(formData.email, formData.password);
+     try {
+       // Login user
+       const user = await loginUser(formData.email, formData.password);
 
-      if (!user) {
-        alert("Invalid email or password.");
-        return;
-      }
-
-      login(user);
-
-      alert(`Welcome back ${user.fullName}!`);
-
-       switch (user.role) {
-         case "student":
-           if (!user.enrolled) {
-             navigate("/pending-enrollment");
-           } else {
-             navigate("/student-dashboard");
-           }
-           break;
-
-         case "instructor":
-           navigate("/instructor-dashboard");
-           break;
-
-         case "admin":
-           navigate("/admin-dashboard");
-           break;
-
-         default:
-           alert("Unknown account type.");
+       if (!user) {
+         alert("Invalid email or password.");
+         return;
        }
-    } catch (error) {
-      console.error(error);
-      alert("Login failed. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+
+       login(user);
+
+       alert(`Welcome back ${user.fullName}!`);
+
+       // Redirect based on role
+       if (user.role === "admin") {
+         navigate("/admin-dashboard");
+       } else if (user.role === "instructor") {
+         navigate("/instructor-dashboard");
+       } else if (user.role === "student") {
+         if (user.enrolled) {
+           navigate("/student-dashboard");
+         } else {
+           alert("Your enrollment is pending admin approval.");
+           navigate("/pending-enrollment");
+         }
+       } else {
+         alert("Unknown account type.");
+       }
+     } catch (error) {
+       console.error(error);
+       alert("Login failed. Please try again.");
+     } finally {
+       setLoading(false);
+     }
+   };
 
   return (
     <div className="min-h-screen bg-[#F8F6F2] flex items-center justify-center px-4 py-10">

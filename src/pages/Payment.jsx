@@ -1,9 +1,11 @@
  import { useNavigate } from "react-router-dom";
  import { CreditCard, Smartphone, Landmark } from "lucide-react";
  import { useState } from "react";
+ import { useAuth } from "@/context/AuthContext";
 
  const Payment = () => {
    const navigate = useNavigate();
+   const { user } = useAuth();
 
    const enrollment = JSON.parse(localStorage.getItem("studentEnrollment"));
 
@@ -16,13 +18,14 @@
      }
 
      // Update enrollment
-     const updatedEnrollment = {
-       ...enrollment,
-       paymentStatus: "Paid",
-       paymentMethod: selectedMethod,
-       paymentDate: new Date().toLocaleString(),
-       enrolled: false, // waiting for admin approval
-     };
+      const updatedEnrollment = {
+        ...enrollment,
+        userId: user.id,
+        paymentStatus: "Paid",
+        paymentMethod: selectedMethod,
+        paymentDate: new Date().toLocaleString(),
+        enrolled: false,
+      };
 
      localStorage.setItem(
        "studentEnrollment",
