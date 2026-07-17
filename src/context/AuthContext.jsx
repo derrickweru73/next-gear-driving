@@ -29,7 +29,12 @@ export const AuthProvider = ({ children }) => {
         user,
         login,
         logout,
+
+        // User is logged in
         isAuthenticated: !!user,
+
+        // User is approved/enrolled
+        isEnrolled: user?.enrolled === true,
       }}
     >
       {children}
