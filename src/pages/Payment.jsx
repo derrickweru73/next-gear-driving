@@ -46,17 +46,19 @@
      // Save payment history
      const payments = JSON.parse(localStorage.getItem("payments")) || [];
 
-     payments.push({
-       fullName: updatedEnrollment.fullName,
-       email: updatedEnrollment.email,
-       phone: updatedEnrollment.phone,
-       course: updatedEnrollment.course,
-       transmission: updatedEnrollment.transmission,
-       amount: 15000,
-       method: selectedMethod,
-       status: "Paid",
-       date: new Date().toLocaleString(),
-     });
+      payments.push({
+        id: Date.now(),
+        userId: user.id,
+        fullName: updatedEnrollment.fullName,
+        email: updatedEnrollment.email,
+        phone: updatedEnrollment.phone,
+        course: updatedEnrollment.course,
+        transmission: updatedEnrollment.transmission,
+        amount: 15000,
+        method: selectedMethod,
+        status: "Paid",
+        date: new Date().toLocaleString(),
+      });
 
      localStorage.setItem("payments", JSON.stringify(payments));
 

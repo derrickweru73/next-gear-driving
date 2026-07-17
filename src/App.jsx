@@ -25,6 +25,10 @@ import ManageStudents from "./pages/ManageStudents";
 import AdminTheoryLessons from "./pages/AdminTheoryLessons";
 import EnrollmentRoute from "./pages/EnrollmentRoute";
 import PendingEnrollment from "./pages/PendingEnrollment";
+import { Import } from "lucide-react";
+import AdminBookings from "./pages/AdminBookingPage";
+import AdminPayments from "./pages/AdminPayments";
+  
 function App() {
   return (
     <>
@@ -51,6 +55,8 @@ function App() {
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/admin/theory-lessons" element={<AdminTheoryLessons />} />
         <Route path="/pending-enrollment" element={<PendingEnrollment />} />
+        <Route path="/admin/bookings" element={<AdminBookings />} />
+        <Route path="/admin/payments" element={<AdminPayments />} />
   
 
 

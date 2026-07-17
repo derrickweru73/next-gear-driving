@@ -24,9 +24,7 @@ const AdminDashboard = () => {
    const [pendingEnrollments, setPendingEnrollments] = useState([]);
    const [activities, setActivities] = useState([]);
 
-  const [lessonCount, setLessonCount] = useState(0);
-  const [bookingCount, setBookingCount] = useState(0);
-  const [paymentCount, setPaymentCount] = useState(0);
+   
  
   useEffect(() => {
     loadStudents();
@@ -40,9 +38,7 @@ const AdminDashboard = () => {
     const pending =
       JSON.parse(localStorage.getItem("pendingEnrollments")) || [];
 
-    setLessonCount(lessons.length);
-    setBookingCount(bookings.length);
-    setPaymentCount(payments.length);
+    
 
      const activity = [];
 
@@ -180,7 +176,7 @@ const AdminDashboard = () => {
           </Link>
 
           <Link
-            to="/admin/payments"
+            to="/admin/payment"
             className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
           >
             <CreditCard size={20} />
