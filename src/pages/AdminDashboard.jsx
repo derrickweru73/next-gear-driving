@@ -21,13 +21,13 @@ const AdminDashboard = () => {
   const { logout } = useAuth();
 
   const [students, setStudents] = useState([]);
-  const [pendingEnrollments, setPendingEnrollments] = useState([]);
+   const [pendingEnrollments, setPendingEnrollments] = useState([]);
+   const [activities, setActivities] = useState([]);
 
   const [lessonCount, setLessonCount] = useState(0);
   const [bookingCount, setBookingCount] = useState(0);
   const [paymentCount, setPaymentCount] = useState(0);
-  const [recentActivity, setRecentActivity] = useState([]);
-
+ 
   useEffect(() => {
     loadStudents();
 
@@ -44,21 +44,21 @@ const AdminDashboard = () => {
     setBookingCount(bookings.length);
     setPaymentCount(payments.length);
 
-    const activity = [];
+     const activity = [];
 
-    pending.forEach((student) =>
-      activity.push(`${student.fullName} submitted enrollment`),
-    );
+     pending.forEach((student) =>
+       activity.push(`${student.fullName} submitted enrollment`),
+     );
 
-    bookings.forEach((booking) =>
-      activity.push(`${booking.fullName} booked a lesson`),
-    );
+     bookings.forEach((booking) =>
+       activity.push(`${booking.fullName} booked a lesson`),
+     );
 
-    payments.forEach((payment) =>
-      activity.push(`${payment.fullName} completed payment`),
-    );
+     payments.forEach((payment) =>
+       activity.push(`${payment.fullName} completed payment`),
+     );
 
-    setRecentActivity(activity.reverse());
+     setActivities(activity.reverse());
   }, []);
 
     const loadStudents = async () => {
@@ -69,6 +69,10 @@ const AdminDashboard = () => {
         JSON.parse(localStorage.getItem("pendingEnrollments")) || [];
 
       setPendingEnrollments(pending);
+
+      const recent = JSON.parse(localStorage.getItem("recentActivities")) || [];
+
+      setActivities(recent);
     };
 
       const approveStudent = async (id) => {
@@ -211,17 +215,23 @@ const AdminDashboard = () => {
 
           <div className="bg-white rounded-2xl shadow p-6">
             <h2 className="text-gray-500">Theory Lessons</h2>
-            <p className="text-4xl font-bold mt-4">{lessonCount}</p>
+            <p className="text-4xl font-bold mt-4">
+              {JSON.parse(localStorage.getItem("theoryLessons"))?.length || 0}
+            </p>
           </div>
 
           <div className="bg-white rounded-2xl shadow p-6">
             <h2 className="text-gray-500">Bookings</h2>
-            <p className="text-4xl font-bold mt-4">{bookingCount}</p>
+            <p className="text-4xl font-bold mt-4">
+              {JSON.parse(localStorage.getItem("lessonBookings"))?.length || 0}
+            </p>
           </div>
 
           <div className="bg-white rounded-2xl shadow p-6">
             <h2 className="text-gray-500">Payments</h2>
-            <p className="text-4xl font-bold mt-4">{paymentCount}</p>
+            <p className="text-4xl font-bold mt-4">
+              {JSON.parse(localStorage.getItem("payments"))?.length || 0}
+            </p>
           </div>
         </div>
 
@@ -242,7 +252,7 @@ const AdminDashboard = () => {
 
                   <p>Course: {student.course}</p>
 
-                  <p>Status: {student.enrolled ? "Enrolled" : "Pending"}</p>
+                  <p>Status: Pending Approval</p>
                 </div>
 
                 {!student.enrolled && (
@@ -297,10 +307,10 @@ const AdminDashboard = () => {
           <div className="bg-white rounded-2xl shadow p-8">
             <h2 className="text-2xl font-bold mb-6">Recent Activity</h2>
 
-            <ul className="space-y-3">
-              {recentActivity.length > 0 ? (
-                recentActivity.map((activity, index) => (
-                  <li key={index}>• {activity}</li>
+            <ul className="space-y-4 text-gray-600">
+              {activities.length > 0 ? (
+                activities.map((activity, index) => (
+                  <li key={index}>{activity}</li>
                 ))
               ) : (
                 <li>No recent activity.</li>

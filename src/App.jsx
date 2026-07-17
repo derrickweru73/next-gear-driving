@@ -50,7 +50,7 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/admin/theory-lessons" element={<AdminTheoryLessons />} />
-        <Route path="/pending-lessons" element={<PendingEnrollment />} />
+        <Route path="/pending-enrollment" element={<PendingEnrollment />} />
   
 
 
