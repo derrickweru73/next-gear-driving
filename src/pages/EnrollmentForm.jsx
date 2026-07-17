@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from "@/context/AuthContext";
 const EnrollmentForm = () => {
   const navigate = useNavigate();
+   const { user } = useAuth();
+   console.log(user);
 
   const [formData, setFormData] = useState(() => {
     const saved = localStorage.getItem("studentEnrollment");
@@ -35,13 +37,19 @@ const EnrollmentForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+   const handleSubmit = (e) => {
+     e.preventDefault();
 
-    localStorage.setItem("studentEnrollment", JSON.stringify(formData));
+     const enrollment = {
+       ...formData,
+       userId: user?.id,
+       enrolled: false,
+     };
 
-    navigate("/payment");
-  };
+     localStorage.setItem("studentEnrollment", JSON.stringify(enrollment));
+
+     navigate("/payment");
+   };
 
   return (
     <div className="min-h-screen bg-[#F8F6F2] py-12 px-6">

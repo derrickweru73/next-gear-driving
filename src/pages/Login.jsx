@@ -58,8 +58,8 @@ const Login = () => {
          if (user.enrolled) {
            navigate("/student-dashboard");
          } else {
-           alert("Your enrollment is pending admin approval.");
-           navigate("/pending-enrollment");
+            
+           navigate("/");
          }
        } else {
          alert("Unknown account type.");

@@ -77,9 +77,10 @@ const AdminDashboard = () => {
 
       const approveStudent = async (id) => {
         try {
-          const response = await axios.patch(
+          const response = await axios.put(
             `https://6a5608ffb17de7bebbddbc73.mockapi.io/api/users/${id}`,
             {
+              ...students.find((student) => student.id === id),
               enrolled: true,
             },
           );
