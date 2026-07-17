@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {  useState, useEffect } from "react"
@@ -25,15 +26,30 @@ const AdminDashboard = () => {
     loadStudents();
   }, []);
 
-  const loadStudents = async () => {
-    const data = await getUsers();
-    setStudents(data);
-  };
+   const loadStudents = async () => {
+     const data = await getUsers();
+     setStudents(data);
+   };
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
+   const approveStudent = async (id) => {
+     try {
+       await axios.put(
+         `https://6a5608ffb17de7bebbddbc73.mockapi.io/api/users/${id}`,
+         {
+           enrolled: true,
+         },
+       );
+
+       loadStudents(); // refresh students list
+     } catch (error) {
+       console.log(error);
+     }
+   };
+
+   const handleLogout = () => {
+     logout();
+     navigate("/login");
+   };
 
   return (
     <div className="min-h-screen flex bg-gray-100">
@@ -136,6 +152,40 @@ const AdminDashboard = () => {
           </div>
         </div>
 
+        {/* Student Enrollment */}
+        <div className="bg-white rounded-2xl shadow p-8 mt-10">
+          <h2 className="text-2xl font-bold mb-6">Student Enrollment</h2>
+
+          <div className="space-y-4">
+            {students.map((student) => (
+              <div
+                key={student.id}
+                className="flex justify-between items-center border p-4 rounded-xl"
+              >
+                <div>
+                  <h3 className="font-bold">{student.fullName}</h3>
+
+                  <p className="text-gray-500">{student.email}</p>
+
+                  <p>Course: {student.course}</p>
+
+                  <p>Status: {student.enrolled ? "Enrolled" : "Pending"}</p>
+                </div>
+
+                {!student.enrolled && (
+                  <button
+                    onClick={() => approveStudent(student.id)}
+                    className="bg-green-600 text-white px-5 py-2 rounded-lg"
+                  >
+                    Approve
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        
         {/* Quick Actions */}
         <div className="grid lg:grid-cols-2 gap-8 mt-10">
           <div className="bg-white rounded-2xl shadow p-8">

@@ -4,8 +4,12 @@ const API_URL =
   "https://6a5608ffb17de7bebbddbc73.mockapi.io/api/users";
 
 // Register User
-export const registerUser = async (userData) => {
-  const response = await axios.post(API_URL, userData);
+ export const registerUser = async (userData) => {
+  const response = await axios.post(API_URL, {
+    ...userData,
+    enrolled: false,
+  });
+
   return response.data;
 };
 
