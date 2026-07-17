@@ -5,12 +5,13 @@ import { useAuth } from "@/context/AuthContext";
 
 const Hero = () => {
   const { isAuthenticated } = useAuth();
+
   return (
     <section
       id="home"
       className="bg-[#0F172A] text-white py-12 overflow-hidden"
     >
-      <div className="max-5-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           {/* Left Content */}
           <div>
@@ -31,6 +32,7 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-wrap gap-5 mt-10">
+              {/* Standard LMS Flow */}
               <Link
                 to={isAuthenticated ? "/enrollment" : "/register"}
                 className="bg-[#F97316] hover:bg-[#EA580C] px-8 py-4 rounded-xl font-semibold flex items-center gap-2 transition"
