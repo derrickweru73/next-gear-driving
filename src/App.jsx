@@ -28,7 +28,7 @@ import PendingEnrollment from "./pages/PendingEnrollment";
 import { Import } from "lucide-react";
 import AdminBookings from "./pages/AdminBookingPage";
 import AdminPayments from "./pages/AdminPayments";
-  
+import AdminPracticalLessons from "./pages/AdminPracticalLesson";
 function App() {
   return (
     <>
@@ -57,6 +57,7 @@ function App() {
         <Route path="/pending-enrollment" element={<PendingEnrollment />} />
         <Route path="/admin/bookings" element={<AdminBookings />} />
         <Route path="/admin/payments" element={<AdminPayments />} />
+        <Route path="/admin/practical-lessons" element={<AdminPracticalLessons />} />
   
 
 
