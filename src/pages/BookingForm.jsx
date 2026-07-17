@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import practicalLessons from "@/data/practicalLessons";
 
@@ -8,13 +8,24 @@ const BookingForm = () => {
 
   const lesson = practicalLessons.find((item) => item.id === Number(id));
 
-  const [booking, setBooking] = useState({
-    date: "",
-    time: "",
-    transmission: "",
-    vehicle: "",
-    notes: "",
-  });
+   const [booking, setBooking] = useState(() => {
+     const savedBooking = localStorage.getItem("booking");
+
+     return savedBooking
+       ? JSON.parse(savedBooking)
+       : {
+           fullName: "",
+           email: "",
+           phone: "",
+           viewingDate: "",
+           viewingTime: "",
+           notes: "",
+         };
+   });
+
+   useEffect(() => {
+     localStorage.setItem("booking", JSON.stringify(booking));
+   }, [booking]);
 
   const handleChange = (e) => {
     setBooking({

@@ -9,20 +9,31 @@ const Payment = () => {
 
   const [selectedMethod, setSelectedMethod] = useState("");
 
+  const handlePayment = () => {
+    if (!selectedMethod) {
+      alert("Please select a payment method.");
+      return;
+    }
 
-   const handlePayment = () => {
-     if (!selectedMethod) {
-       alert("Please select a payment method.");
-       return;
-     }
+    const updatedEnrollment = {
+      ...enrollment,
+      paymentStatus: "Paid",
+      paymentMethod: selectedMethod,
+      paymentDate: new Date().toLocaleString(),
+      enrolled: false,
+    };
 
-     localStorage.setItem("paymentMethod", selectedMethod);
-     localStorage.setItem("paymentCompleted", "true");
+    localStorage.setItem(
+      "studentEnrollment",
+      JSON.stringify(updatedEnrollment),
+    );
 
-     alert(`Payment successful using ${selectedMethod}!`);
+    localStorage.setItem("paymentCompleted", "true");
 
-     navigate("/payment-success");
-   };
+    alert(`Payment successful using ${selectedMethod}!`);
+
+    navigate("/payment-success");
+  };
 
   if (!enrollment) {
     return (
@@ -31,9 +42,6 @@ const Payment = () => {
       </div>
     );
   }
-
- 
-
 
   return (
     <div className="min-h-screen bg-[#F8F6F2] py-12 px-6">
@@ -55,6 +63,14 @@ const Payment = () => {
             </p>
 
             <p>
+              <strong>Email:</strong> {enrollment.email}
+            </p>
+
+            <p>
+              <strong>Phone:</strong> {enrollment.phone}
+            </p>
+
+            <p>
               <strong>Course:</strong> {enrollment.course}
             </p>
 
@@ -70,6 +86,8 @@ const Payment = () => {
           <h2 className="text-2xl font-bold text-[#F97316]">Course Fee</h2>
 
           <p className="text-5xl font-bold mt-4">KSh 15,000</p>
+
+          <p className="text-gray-600 mt-2">One-time registration payment.</p>
         </div>
 
         {/* Payment Methods */}
@@ -82,12 +100,14 @@ const Payment = () => {
               onClick={() => setSelectedMethod("M-Pesa")}
               className={`cursor-pointer rounded-xl p-6 text-center border transition ${
                 selectedMethod === "M-Pesa"
-                  ? "border-[#F97316] bg-orange-50"
+                  ? "border-[#F97316] bg-orange-50 shadow"
                   : "border-gray-300"
               }`}
             >
               <Smartphone className="mx-auto text-green-600" size={40} />
+
               <h3 className="font-bold mt-4">M-Pesa</h3>
+
               <p className="text-gray-500 mt-2">Paybill: 123456</p>
             </div>
 
@@ -95,11 +115,12 @@ const Payment = () => {
               onClick={() => setSelectedMethod("Card")}
               className={`cursor-pointer rounded-xl p-6 text-center border transition ${
                 selectedMethod === "Card"
-                  ? "border-[#F97316] bg-orange-50"
+                  ? "border-[#F97316] bg-orange-50 shadow"
                   : "border-gray-300"
               }`}
             >
               <CreditCard className="mx-auto text-blue-600" size={40} />
+
               <h3 className="font-bold mt-4">Debit / Credit Card</h3>
             </div>
 
@@ -107,15 +128,26 @@ const Payment = () => {
               onClick={() => setSelectedMethod("Bank")}
               className={`cursor-pointer rounded-xl p-6 text-center border transition ${
                 selectedMethod === "Bank"
-                  ? "border-[#F97316] bg-orange-50"
+                  ? "border-[#F97316] bg-orange-50 shadow"
                   : "border-gray-300"
               }`}
             >
               <Landmark className="mx-auto text-[#0F172A]" size={40} />
+
               <h3 className="font-bold mt-4">Bank Transfer</h3>
             </div>
           </div>
         </div>
+
+        {/* Selected Method */}
+
+        {selectedMethod && (
+          <div className="mt-8 bg-green-50 border border-green-300 rounded-xl p-4">
+            <p className="font-semibold text-green-700">
+              Selected Payment Method: {selectedMethod}
+            </p>
+          </div>
+        )}
 
         <button
           onClick={handlePayment}

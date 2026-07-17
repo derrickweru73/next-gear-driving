@@ -24,6 +24,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import ManageStudents from "./pages/ManageStudents";
 import AdminTheoryLessons from "./pages/AdminTheoryLessons";
 import EnrollmentRoute from "./pages/EnrollmentRoute";
+import PendingEnrollment from "./pages/PendingEnrollment";
 function App() {
   return (
     <>
@@ -49,6 +50,7 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/admin/theory-lessons" element={<AdminTheoryLessons />} />
+        <Route path="/pending-lessons" element={<PendingEnrollment />} />
   
 
 

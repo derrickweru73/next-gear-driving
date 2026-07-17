@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const EnrollmentForm = () => {
@@ -18,6 +18,20 @@ const EnrollmentForm = () => {
     emergencyPhone: "",
   });
 
+  // Load saved enrollment when page opens
+  useEffect(() => {
+    const savedEnrollment = localStorage.getItem("studentEnrollment");
+
+    if (savedEnrollment) {
+      setFormData(JSON.parse(savedEnrollment));
+    }
+  }, []);
+
+  // Save while typing
+  useEffect(() => {
+    localStorage.setItem("studentEnrollment", JSON.stringify(formData));
+  }, [formData]);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -27,8 +41,17 @@ const EnrollmentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-// save enrollment details before proceeding to payment
-    localStorage.setItem("studentEnrollment", JSON.stringify(formData));
+
+    const enrollment = {
+      ...formData,
+      paymentStatus: "Pending",
+      enrolled: false,
+      submittedAt: new Date().toLocaleString(),
+    };
+
+    localStorage.setItem("studentEnrollment", JSON.stringify(enrollment));
+
+    alert("Enrollment saved successfully.");
 
     navigate("/payment");
   };
@@ -50,47 +73,47 @@ const EnrollmentForm = () => {
         >
           <div>
             <label className="font-semibold">Full Name</label>
-
             <input
               type="text"
               name="fullName"
-              required
+              value={formData.fullName}
               onChange={handleChange}
+              required
               className="w-full mt-2 border rounded-xl p-3"
             />
           </div>
 
           <div>
             <label className="font-semibold">National ID / Passport</label>
-
             <input
               type="text"
               name="nationalId"
-              required
+              value={formData.nationalId}
               onChange={handleChange}
+              required
               className="w-full mt-2 border rounded-xl p-3"
             />
           </div>
 
           <div>
             <label className="font-semibold">Date of Birth</label>
-
             <input
               type="date"
               name="dateOfBirth"
-              required
+              value={formData.dateOfBirth}
               onChange={handleChange}
+              required
               className="w-full mt-2 border rounded-xl p-3"
             />
           </div>
 
           <div>
             <label className="font-semibold">Gender</label>
-
             <select
               name="gender"
-              required
+              value={formData.gender}
               onChange={handleChange}
+              required
               className="w-full mt-2 border rounded-xl p-3"
             >
               <option value="">Select Gender</option>
@@ -101,47 +124,47 @@ const EnrollmentForm = () => {
 
           <div>
             <label className="font-semibold">Phone Number</label>
-
             <input
               type="tel"
               name="phone"
-              required
+              value={formData.phone}
               onChange={handleChange}
+              required
               className="w-full mt-2 border rounded-xl p-3"
             />
           </div>
 
           <div>
             <label className="font-semibold">Email</label>
-
             <input
               type="email"
               name="email"
-              required
+              value={formData.email}
               onChange={handleChange}
+              required
               className="w-full mt-2 border rounded-xl p-3"
             />
           </div>
 
           <div className="md:col-span-2">
             <label className="font-semibold">Residential Address</label>
-
             <textarea
               name="address"
               rows="3"
-              required
+              value={formData.address}
               onChange={handleChange}
+              required
               className="w-full mt-2 border rounded-xl p-3"
             />
           </div>
 
           <div>
             <label className="font-semibold">Driving Course</label>
-
             <select
               name="course"
-              required
+              value={formData.course}
               onChange={handleChange}
+              required
               className="w-full mt-2 border rounded-xl p-3"
             >
               <option value="">Select Course</option>
@@ -153,11 +176,11 @@ const EnrollmentForm = () => {
 
           <div>
             <label className="font-semibold">Transmission</label>
-
             <select
               name="transmission"
-              required
+              value={formData.transmission}
               onChange={handleChange}
+              required
               className="w-full mt-2 border rounded-xl p-3"
             >
               <option value="">Select</option>
@@ -168,30 +191,33 @@ const EnrollmentForm = () => {
 
           <div>
             <label className="font-semibold">Emergency Contact</label>
-
             <input
               type="text"
               name="emergencyContact"
-              required
+              value={formData.emergencyContact}
               onChange={handleChange}
+              required
               className="w-full mt-2 border rounded-xl p-3"
             />
           </div>
 
           <div>
             <label className="font-semibold">Emergency Phone</label>
-
             <input
               type="tel"
               name="emergencyPhone"
-              required
+              value={formData.emergencyPhone}
               onChange={handleChange}
+              required
               className="w-full mt-2 border rounded-xl p-3"
             />
           </div>
 
           <div className="md:col-span-2 mt-6">
-            <button className="w-full bg-[#F97316] hover:bg-orange-600 text-white py-4 rounded-xl font-semibold">
+            <button
+              type="submit"
+              className="w-full bg-[#F97316] hover:bg-orange-600 text-white py-4 rounded-xl font-semibold"
+            >
               Continue to Payment
             </button>
           </div>
