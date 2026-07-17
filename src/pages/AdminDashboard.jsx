@@ -1,138 +1,191 @@
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import {  useState, useEffect } from "react"
+import { getUsers } from "@/services/AuthApi";
 import {
+  LayoutDashboard,
   Users,
   BookOpen,
   CarFront,
   CreditCard,
   CalendarDays,
-  UserCheck,
+  CheckCircle,
   Settings,
+  LogOut,
 } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
-const cards = [
-  {
-    title: "Manage Students",
-    description: "View, update and manage student accounts",
-    icon: Users,
-    path: "/admin/students",
-    color: "bg-blue-100 text-blue-600",
-  },
-  {
-    title: "Theory Lessons",
-    description: "Create and manage theory lessons and quizzes",
-    icon: BookOpen,
-    path: "/admin/theory",
-    color: "bg-orange-100 text-orange-600",
-  },
-  {
-    title: "Practical Lessons",
-    description: "Manage driving sessions and instructors",
-    icon: CarFront,
-    path: "/admin/practical",
-    color: "bg-green-100 text-green-600",
-  },
-  {
-    title: "Payments",
-    description: "Approve and track student payments",
-    icon: CreditCard,
-    path: "/admin/payments",
-    color: "bg-yellow-100 text-yellow-600",
-  },
-  {
-    title: "Bookings",
-    description: "Manage lesson bookings",
-    icon: CalendarDays,
-    path: "/admin/bookings",
-    color: "bg-purple-100 text-purple-600",
-  },
-];
+const AdminDashboard = () => {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
-export default function AdminDashboard() {
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    loadStudents();
+  }, []);
+
+  const loadStudents = async () => {
+    const data = await getUsers();
+    setStudents(data);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
-    <div className="min-h-screen bg-[#F8F6F2]">
-      {/* Header */}
-      <div className="bg-[#0F172A] text-white p-8">
-        <h1 className="text-4xl font-bold">Admin Dashboard</h1>
+    <div className="min-h-screen flex bg-gray-100">
+      {/* Sidebar */}
+      <aside className="w-72 bg-[#0F172A] text-white flex flex-col">
+        <div className="p-6 border-b border-slate-700">
+          <h1 className="text-3xl font-bold">Next Gear</h1>
+          <p className="text-orange-500">Admin Panel</p>
+        </div>
 
-        <p className="mt-2 text-gray-300">
-          Control and manage Next Gear Driving LMS
+        <nav className="flex-1 py-6">
+          <Link
+            to="/admin-dashboard"
+            className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
+          >
+            <LayoutDashboard size={20} />
+            Dashboard
+          </Link>
+
+          <Link
+            to="/admin/students"
+            className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
+          >
+            <Users size={20} />
+            Manage Students
+          </Link>
+
+          <Link
+            to="/admin/theory-lessons"
+            className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
+          >
+            <BookOpen size={20} />
+            Theory Lessons
+          </Link>
+
+          <Link
+            to="/admin/practical-lessons"
+            className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
+          >
+            <CarFront size={20} />
+            Practical Lessons
+          </Link>
+
+          <Link
+            to="/admin/bookings"
+            className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
+          >
+            <CalendarDays size={20} />
+            Lesson Bookings
+          </Link>
+
+          <Link
+            to="/admin/payments"
+            className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
+          >
+            <CreditCard size={20} />
+            Payments
+          </Link>
+        </nav>
+
+        <div className="p-6">
+          <button
+            onClick={handleLogout}
+            className="w-full bg-red-600 hover:bg-red-700 py-3 rounded-xl flex items-center justify-center gap-2"
+          >
+            <LogOut size={18} />
+            Logout
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 p-10">
+        <h1 className="text-4xl font-bold text-[#0F172A]">Admin Dashboard</h1>
+
+        <p className="text-gray-500 mt-2">
+          Manage the entire Driving School LMS from one place.
         </p>
-      </div>
 
-      <div className="p-8">
         {/* Statistics */}
-        <div className="grid md:grid-cols-4 gap-6">
+        <div className="grid lg:grid-cols-4 gap-6 mt-10">
           <div className="bg-white rounded-2xl shadow p-6">
-            <Users className="text-blue-600" />
-            <h2 className="text-3xl font-bold mt-3">120</h2>
-            <p className="text-gray-500">Total Students</p>
+            <h2 className="text-gray-500">Students</h2>
+            <p className="text-4xl font-bold mt-4">{students.length}</p>
           </div>
 
           <div className="bg-white rounded-2xl shadow p-6">
-            <BookOpen className="text-orange-600" />
-            <h2 className="text-3xl font-bold mt-3">15</h2>
-            <p className="text-gray-500">Theory Lessons</p>
+            <h2 className="text-gray-500">Theory Lessons</h2>
+            <p className="text-4xl font-bold mt-4">0</p>
           </div>
 
           <div className="bg-white rounded-2xl shadow p-6">
-            <CarFront className="text-green-600" />
-            <h2 className="text-3xl font-bold mt-3">45</h2>
-            <p className="text-gray-500">Practical Sessions</p>
+            <h2 className="text-gray-500">Bookings</h2>
+            <p className="text-4xl font-bold mt-4">0</p>
           </div>
 
           <div className="bg-white rounded-2xl shadow p-6">
-            <CreditCard className="text-yellow-600" />
-            <h2 className="text-3xl font-bold mt-3">80</h2>
-            <p className="text-gray-500">Completed Payments</p>
+            <h2 className="text-gray-500">Payments</h2>
+            <p className="text-4xl font-bold mt-4">0</p>
           </div>
         </div>
 
-        {/* Management Cards */}
-        <h2 className="text-2xl font-bold mt-10 mb-5">System Management</h2>
+        {/* Quick Actions */}
+        <div className="grid lg:grid-cols-2 gap-8 mt-10">
+          <div className="bg-white rounded-2xl shadow p-8">
+            <h2 className="text-2xl font-bold mb-6">Quick Actions</h2>
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {cards.map((card) => {
-            const Icon = card.icon;
-
-            return (
+            <div className="grid grid-cols-2 gap-4">
               <Link
-                key={card.title}
-                to={card.path}
-                className="bg-white rounded-2xl shadow hover:shadow-xl transition p-6"
+                to="/admin/theory-lessons"
+                className="bg-orange-500 text-white rounded-xl py-4 text-center"
               >
-                <div
-                  className={`w-14 h-14 rounded-xl flex items-center justify-center ${card.color}`}
-                >
-                  <Icon size={30} />
-                </div>
-
-                <h3 className="text-xl font-bold mt-5">{card.title}</h3>
-
-                <p className="text-gray-500 mt-2">{card.description}</p>
+                Add Theory Lesson
               </Link>
-            );
-          })}
-        </div>
 
-        {/* Recent Activities */}
+              <Link
+                to="/admin/practical-lessons"
+                className="bg-blue-600 text-white rounded-xl py-4 text-center"
+              >
+                Add Practical Lesson
+              </Link>
 
-        <div className="bg-white rounded-2xl shadow mt-10 p-6">
-          <div className="flex items-center gap-3 mb-5">
-            <Settings />
-            <h2 className="text-2xl font-bold">Recent Activities</h2>
+              <Link
+                to="/admin/payments"
+                className="bg-green-600 text-white rounded-xl py-4 text-center"
+              >
+                Approve Payments
+              </Link>
+
+              <Link
+                to="/admin/students"
+                className="bg-purple-600 text-white rounded-xl py-4 text-center"
+              >
+                View Users
+              </Link>
+            </div>
           </div>
 
-          <ul className="space-y-4">
-            <li className="border-b pb-3">New student registered</li>
+          <div className="bg-white rounded-2xl shadow p-8">
+            <h2 className="text-2xl font-bold mb-6">Recent Activity</h2>
 
-            <li className="border-b pb-3">
-              Payment approved for student account
-            </li>
-
-            <li>New practical lesson added</li>
-          </ul>
+            <ul className="space-y-4 text-gray-600">
+              <li>No recent student registrations.</li>
+              <li>No new lesson bookings.</li>
+              <li>No pending payments.</li>
+              <li>No lesson updates.</li>
+            </ul>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
-}
+};
+
+export default AdminDashboard;
