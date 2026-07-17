@@ -12,137 +12,170 @@ const navLinks = [
   { name: "FAQs", path: "/faq" },
 ];
 
- const Navbar = () => {
-   const { isAuthenticated, logout } = useAuth();
-   const navigate = useNavigate();
+const Navbar = () => {
+  // CHANGED: Added user so we can check enrollment status
+  const { user, isAuthenticated, logout } = useAuth();
 
-   const paymentCompleted = localStorage.getItem("paymentCompleted") === "true"
+  const navigate = useNavigate();
 
-   const handleLogout = () => {
-     logout();
-     navigate("/login");
-   };
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
-   return (
-     <nav className="sticky top-0 z-50 w-full bg-white border-b border-slate-200 shadow-sm">
-       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-         {/* Logo */}
-         <Link to="/" className="flex items-center gap-3">
-           <div className="w-12 h-12 rounded-full bg-[#0F172A] flex items-center justify-center shadow-md">
-             <CarFront className="w-6 h-6 text-[#F97316]" />
-           </div>
+  return (
+    <nav className="sticky top-0 z-50 w-full bg-white border-b border-slate-200 shadow-sm">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-full bg-[#0F172A] flex items-center justify-center shadow-md">
+            <CarFront className="w-6 h-6 text-[#F97316]" />
+          </div>
 
-           <div>
-             <h1 className="text-2xl font-bold text-[#0F172A]">Next Gear</h1>
+          <div>
+            <h1 className="text-2xl font-bold text-[#0F172A]">Next Gear</h1>
 
-             <p className="text-xs uppercase tracking-[3px] text-slate-500">
-               Driving LMS
-             </p>
-           </div>
-         </Link>
+            <p className="text-xs uppercase tracking-[3px] text-slate-500">
+              Driving LMS
+            </p>
+          </div>
+        </Link>
 
-         {/* Navigation */}
+        {/* Public Navigation */}
+        <div className="hidden lg:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.name}
+              to={link.path}
+              className={({ isActive }) =>
+                `font-semibold transition duration-300 ${
+                  isActive
+                    ? "text-[#F97316]"
+                    : "text-slate-700 hover:text-[#F97316]"
+                }`
+              }
+            >
+              {link.name}
+            </NavLink>
+          ))}
+        </div>
 
-         <div className="hidden lg:flex items-center gap-8">
-           {navLinks.map((link) => (
-             <NavLink
-               key={link.name}
-               to={link.path}
-               className={({ isActive }) =>
-                 `font-semibold transition duration-300 ${
-                   isActive
-                     ? "text-[#F97316]"
-                     : "text-slate-700 hover:text-[#F97316]"
-                 }`
-               }
-             >
-               {link.name}
-             </NavLink>
-           ))}
-         </div>
+        {/* Right Section */}
 
-         {/* Right Section */}
+        <div className="flex items-center gap-3">
+          <Button variant="ghost" size="icon" disabled className="rounded-full">
+            <Moon className="w-5 h-5 text-slate-700" />
+          </Button>
 
-         <div className="flex items-center gap-3">
-           <Button
-             variant="ghost"
-             size="icon"
-             disabled
-             className="rounded-full"
-           >
-             <Moon className="w-5 h-5 text-slate-700" />
-           </Button>
+          {/* CHANGED:
+              Only public courses preview button.
+              Does not give lesson access.
+          */}
+          <Link to="/courses">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full hover:bg-slate-100"
+            >
+              <BookOpen className="w-5 h-5 text-[#0F172A]" />
+            </Button>
+          </Link>
 
-           <Link to="/courses">
-             <Button
-               variant="ghost"
-               size="icon"
-               className="rounded-full hover:bg-slate-100"
-             >
-               <BookOpen className="w-5 h-5 text-[#0F172A]" />
-             </Button>
-           </Link>
+          {/* CHANGED:
+              Before approval -> goes to enrollment
+              After approval -> booking lessons
+          */}
 
-           <Link to="/practical-lessons">
-             <Button
-               variant="outline"
-               className="hidden xl:flex items-center gap-2 border-[#0F172A] text-[#0F172A] hover:bg-[#0F172A] hover:text-white rounded-full"
-             >
-               <CalendarDays className="w-4 h-4" />
-               Book Lesson
-             </Button>
-           </Link>
+          {user?.enrolled === true ? (
+            <Link to="/practical-lessons">
+              <Button
+                variant="outline"
+                className="hidden xl:flex items-center gap-2 border-[#0F172A] text-[#0F172A] hover:bg-[#0F172A] hover:text-white rounded-full"
+              >
+                <CalendarDays className="w-4 h-4" />
+                Book Lesson
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/enroll">
+              <Button
+                variant="outline"
+                className="hidden xl:flex items-center gap-2 border-[#0F172A] text-[#0F172A] hover:bg-[#0F172A] hover:text-white rounded-full"
+              >
+                <CalendarDays className="w-4 h-4" />
+                Enroll Now
+              </Button>
+            </Link>
+          )}
 
-           <Link to="/contact">
-             <Button
-               variant="ghost"
-               size="icon"
-               className="rounded-full hover:bg-slate-100"
-             >
-               <Phone className="w-5 h-5 text-[#0F172A]" />
-             </Button>
-           </Link>
-          
+          <Link to="/contact">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full hover:bg-slate-100"
+            >
+              <Phone className="w-5 h-5 text-[#0F172A]" />
+            </Button>
+          </Link>
 
-          {/* checks logged in but not paid  logout is shown ,logged in and paid(dashb & logoout are shown) and not logged in (login & register are shown)  */}
-           {isAuthenticated ? (
-             <>
-               {paymentCompleted && (
-                 <Link
-                   to="/student-dashboard"
-                   className="hidden md:block font-semibold text-slate-700 hover:text-[#F97316]"
-                 >
-                   Dashboard
-                 </Link>
-               )}
+          {/* Authentication Section */}
 
-               <Button
-                 onClick={handleLogout}
-                 className="bg-red-600 hover:bg-red-700 text-white rounded-full px-7"
-               >
-                 Logout
-               </Button>
-             </>
-           ) : (
-             <>
-               <Link
-                 to="/login"
-                 className="hidden md:block font-semibold text-slate-700 hover:text-[#F97316]"
-               >
-                 Login
-               </Link>
+          {isAuthenticated ? (
+            <>
+              {/* CHANGED:
+                  Dashboard appears ONLY after admin approval
+                  enrolled must be true
+              */}
 
-               <Link to="/register">
-                 <Button className="bg-[#F97316] hover:bg-[#EA580C] text-black rounded-full px-7">
-                   Register
-                 </Button>
-               </Link>
-             </>
-           )}
-         </div>
-       </div>
-     </nav>
-   );
- };
+              {user?.enrolled === true && (
+                <Link
+                  to="/student-dashboard"
+                  className="hidden md:block font-semibold text-slate-700 hover:text-[#F97316]"
+                >
+                  Dashboard
+                </Link>
+              )}
+
+              {/* CHANGED:
+                  Students waiting approval see Enroll
+              */}
+
+              {user?.enrolled === false && (
+                <Link
+                  to="/enroll"
+                  className="hidden md:block font-semibold text-slate-700 hover:text-[#F97316]"
+                >
+                  Enroll Now
+                </Link>
+              )}
+
+              <Button
+                onClick={handleLogout}
+                className="bg-red-600 hover:bg-red-700 text-white rounded-full px-7"
+              >
+                Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="hidden md:block font-semibold text-slate-700 hover:text-[#F97316]"
+              >
+                Login
+              </Link>
+
+              <Link to="/register">
+                <Button className="bg-[#F97316] hover:bg-[#EA580C] text-black rounded-full px-7">
+                  Register
+                </Button>
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+};
 
 export default Navbar;

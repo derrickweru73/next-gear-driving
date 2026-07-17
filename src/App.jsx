@@ -23,6 +23,7 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import AdminDashboard from "./pages/AdminDashboard";
 import ManageStudents from "./pages/ManageStudents";
 import AdminTheoryLessons from "./pages/AdminTheoryLessons";
+import EnrollmentRoute from "./pages/EnrollmentRoute";
 function App() {
   return (
     <>
@@ -48,8 +49,11 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/admin/theory-lessons" element={<AdminTheoryLessons />} />
+        <Route path="/Student-dashboard" element={<StudentDashboard/>} />
+ 
 
 
+         <Route path="/student-dashboard" element={<EnrollmentRoute><StudentDashboard/></EnrollmentRoute> } />
         <Route path="/student-dashboard" element={
           <ProtectedRoute>
              < StudentDashboard/>
