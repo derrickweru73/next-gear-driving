@@ -33,12 +33,14 @@ const AdminDashboard = () => {
 
    const approveStudent = async (id) => {
      try {
-       await axios.put(
+       await axios.patch(
          `https://6a5608ffb17de7bebbddbc73.mockapi.io/api/users/${id}`,
          {
            enrolled: true,
          },
        );
+
+       alert("Student approved successfully")
 
        loadStudents(); // refresh students list
      } catch (error) {

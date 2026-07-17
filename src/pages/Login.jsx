@@ -48,22 +48,26 @@ const Login = () => {
 
       alert(`Welcome back ${user.fullName}!`);
 
-      switch (user.role) {
-        case "student":
-          navigate("/");
-          break;
+       switch (user.role) {
+         case "student":
+           if (!user.enrolled) {
+             navigate("/pending-enrollment");
+           } else {
+             navigate("/student-dashboard");
+           }
+           break;
 
-        case "instructor":
-          navigate("/instructor-dashboard");
-          break;
+         case "instructor":
+           navigate("/instructor-dashboard");
+           break;
 
-        case "admin":
-          navigate("/admin-dashboard");
-          break;
+         case "admin":
+           navigate("/admin-dashboard");
+           break;
 
-        default:
-          alert("Unknown account type.");
-      }
+         default:
+           alert("Unknown account type.");
+       }
     } catch (error) {
       console.error(error);
       alert("Login failed. Please try again.");

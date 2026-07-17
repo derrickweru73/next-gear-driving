@@ -54,23 +54,23 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const newUser = {
-        fullName: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        password: formData.password,
-        role: "student",
-      };
+       const newUser = {
+         fullName: formData.fullName,
+         email: formData.email,
+         phone: formData.phone,
+         password: formData.password,
+         role: "student",
+
+         enrolled: false,
+         bookingCompleted: false,
+         paymentCompleted: false,
+         activity: ["Account created"],
+       };
 
        const user = await registerUser(newUser);
 
        // Save registered students for Admin Dashboard
-       const students = JSON.parse(localStorage.getItem("students")) || [];
-
-       students.push(newUser);
-
-       localStorage.setItem("students", JSON.stringify(students));
-
+        
        login(user);
 
        alert("Registration successful!");

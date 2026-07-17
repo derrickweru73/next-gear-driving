@@ -1,21 +1,20 @@
-import { Navigate } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
+ import { Navigate } from "react-router-dom";
+ import { useAuth } from "@/context/AuthContext";
 
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+ const ProtectedRoute = ({ children }) => {
+   const { user } = useAuth();
 
-  const paymentCompleted = localStorage.getItem("paymentCompleted") === "true";
+   // Not logged in
+   if (!user) {
+     return <Navigate to="/login" replace />;
+   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
+   // Student not yet approved
+   if (user.role === "student" && !user.enrolled) {
+     return <Navigate to="/enrollment" replace />;
+   }
 
-  // Prevent access to dashboard until payment is completed
-  if (!paymentCompleted) {
-    return <Navigate to="/enrollment" replace />;
-  }
+   return children;
+ };
 
-  return children;
-};
-
-export default ProtectedRoute;
+ export default ProtectedRoute;
