@@ -22,6 +22,7 @@ import Payment from "./pages/Payment";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import AdminDashboard from "./pages/AdminDashboard";
 import ManageStudents from "./pages/ManageStudents";
+import AdminTheoryLessons from "./pages/AdminTheoryLessons";
 function App() {
   return (
     <>
@@ -46,6 +47,7 @@ function App() {
         <Route path="/enrollment" element={<EnrollmentForm />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/admin/theory-lessons" element={<AdminTheoryLessons />} />
 
 
         <Route path="/student-dashboard" element={

@@ -1,8 +1,21 @@
 import { Link } from "react-router-dom";
-import theoryLessons from "../data/theoryLessonsData";
+import { useEffect, useState } from "react";
+import defaultLessons from "../data/theoryLessonsData";
 import { BookOpen, Clock3, CheckCircle, Lock, PlayCircle } from "lucide-react";
 
 const TheoryLessons = () => {
+    const [theoryLessons, setTheoryLessons] = useState([]);
+
+    useEffect(() => {
+      const savedLessons = localStorage.getItem("theoryLessons");
+
+      if (savedLessons) {
+        setTheoryLessons(JSON.parse(savedLessons));
+      } else {
+        localStorage.setItem("theoryLessons", JSON.stringify(defaultLessons));
+        setTheoryLessons(defaultLessons);
+      }
+    }, []);
   return (
     <div className="min-h-screen bg-[#F8F6F2] px-10 py-12">
       <div className="mb-10">

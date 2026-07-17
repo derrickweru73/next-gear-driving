@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import theoryLessons from "@/data/theoryLessonsData";
+import { useState, useEffect } from "react";
+import defaultLessons from "@/data/theoryLessonsData";
 import { ArrowLeft, Clock3, CheckCircle2, PlayCircle } from "lucide-react";
 
 const TheoryLessonDetails = () => {
@@ -9,10 +9,21 @@ const TheoryLessonDetails = () => {
 
   const navigate = useNavigate();
 
-console.log(theoryLessons);
-console.log(Array.isArray(theoryLessons))
+ 
 
-  const lesson = theoryLessons.find((item) => item.id === Number(id));
+   const [lessons, setLessons] = useState([]);
+
+   useEffect(() => {
+     const savedLessons = localStorage.getItem("theoryLessons");
+
+     if (savedLessons) {
+       setLessons(JSON.parse(savedLessons));
+     } else {
+       setLessons(defaultLessons);
+     }
+   }, []);
+
+    const lesson = lessons.find((item) => String(item.id) === String(id));
 
   const [completed, setCompleted] = useState(false);
 
@@ -64,10 +75,20 @@ console.log(Array.isArray(theoryLessons))
 
         {/* Video Placeholder */}
 
-        <div className="mt-10 bg-[#0F172A] rounded-2xl h-72 flex flex-col items-center justify-center text-white">
-          <PlayCircle size={70} className="text-[#F97316]" />
-
-          <p className="mt-4 text-lg">Lesson Video Placeholder</p>
+        <div className="mt-10">
+          {lesson.video ? (
+            <iframe
+              className="w-full h-96 rounded-2xl"
+              src={lesson.video.replace("watch?v=", "embed/")}
+              title={lesson.title}
+              allowFullScreen
+            />
+          ) : (
+            <div className="bg-[#0F172A] rounded-2xl h-72 flex flex-col items-center justify-center text-white">
+              <PlayCircle size={70} className="text-[#F97316]" />
+              <p className="mt-4 text-lg">No video available</p>
+            </div>
+          )}
         </div>
 
         {/* Lesson Content */}
@@ -75,24 +96,17 @@ console.log(Array.isArray(theoryLessons))
         <div className="mt-10">
           <h2 className="text-2xl font-bold text-[#0F172A]">Lesson Notes</h2>
 
-          <p className="text-gray-700 mt-6 leading-8">{lesson.description}</p>
+          <h2 className="text-2xl font-bold text-[#0F172A] mt-8">
+            Lesson Objectives
+          </h2>
 
-          <p className="text-gray-700 mt-5 leading-8">
-            In this lesson you will learn the important driving concepts
-            required before moving to practical training. Carefully study each
-            topic, understand the road safety rules and prepare for the theory
-            assessment.
-          </p>
+          <p className="text-gray-700 mt-5 leading-8">{lesson.objectives}</p>
 
-          <ul className="list-disc pl-6 mt-6 space-y-3 text-gray-700">
-            <li>Understand the lesson objectives.</li>
+          <h2 className="text-2xl font-bold text-[#0F172A] mt-8">
+            Lesson Notes
+          </h2>
 
-            <li>Study all examples carefully.</li>
-
-            <li>Review Kenyan traffic regulations.</li>
-
-            <li>Take notes before attempting the quiz.</li>
-          </ul>
+          <p className="text-gray-700 mt-5 leading-8">{lesson.notes}</p>
         </div>
 
         <button
