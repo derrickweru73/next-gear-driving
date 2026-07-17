@@ -4,30 +4,26 @@ import { useNavigate } from "react-router-dom";
 const EnrollmentForm = () => {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    fullName: "",
-    nationalId: "",
-    dateOfBirth: "",
-    gender: "",
-    phone: "",
-    email: "",
-    address: "",
-    course: "",
-    transmission: "",
-    emergencyContact: "",
-    emergencyPhone: "",
+  const [formData, setFormData] = useState(() => {
+    const saved = localStorage.getItem("studentEnrollment");
+
+    return saved
+      ? JSON.parse(saved)
+      : {
+          fullName: "",
+          nationalId: "",
+          dateOfBirth: "",
+          gender: "",
+          phone: "",
+          email: "",
+          address: "",
+          course: "",
+          transmission: "",
+          emergencyContact: "",
+          emergencyPhone: "",
+        };
   });
 
-  // Load saved enrollment when page opens
-  useEffect(() => {
-    const savedEnrollment = localStorage.getItem("studentEnrollment");
-
-    if (savedEnrollment) {
-      setFormData(JSON.parse(savedEnrollment));
-    }
-  }, []);
-
-  // Save while typing
   useEffect(() => {
     localStorage.setItem("studentEnrollment", JSON.stringify(formData));
   }, [formData]);
@@ -42,16 +38,7 @@ const EnrollmentForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const enrollment = {
-      ...formData,
-      paymentStatus: "Pending",
-      enrolled: false,
-      submittedAt: new Date().toLocaleString(),
-    };
-
-    localStorage.setItem("studentEnrollment", JSON.stringify(enrollment));
-
-    alert("Enrollment saved successfully.");
+    localStorage.setItem("studentEnrollment", JSON.stringify(formData));
 
     navigate("/payment");
   };

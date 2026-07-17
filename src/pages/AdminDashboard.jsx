@@ -22,8 +22,42 @@ const AdminDashboard = () => {
 
   const [students, setStudents] = useState([]);
 
+  const [lessonCount, setLessonCount] = useState(0);
+  const [bookingCount, setBookingCount] = useState(0);
+  const [paymentCount, setPaymentCount] = useState(0);
+  const [recentActivity, setRecentActivity] = useState([]);
+
   useEffect(() => {
     loadStudents();
+
+    const lessons = JSON.parse(localStorage.getItem("theoryLessons")) || [];
+
+    const bookings = JSON.parse(localStorage.getItem("lessonBookings")) || [];
+
+    const payments = JSON.parse(localStorage.getItem("payments")) || [];
+
+    const pending =
+      JSON.parse(localStorage.getItem("pendingEnrollments")) || [];
+
+    setLessonCount(lessons.length);
+    setBookingCount(bookings.length);
+    setPaymentCount(payments.length);
+
+    const activity = [];
+
+    pending.forEach((student) =>
+      activity.push(`${student.fullName} submitted enrollment`),
+    );
+
+    bookings.forEach((booking) =>
+      activity.push(`${booking.fullName} booked a lesson`),
+    );
+
+    payments.forEach((payment) =>
+      activity.push(`${payment.fullName} completed payment`),
+    );
+
+    setRecentActivity(activity.reverse());
   }, []);
 
    const loadStudents = async () => {
@@ -31,22 +65,31 @@ const AdminDashboard = () => {
      setStudents(data);
    };
 
-   const approveStudent = async (id) => {
-     try {
-       await axios.patch(
-         `https://6a5608ffb17de7bebbddbc73.mockapi.io/api/users/${id}`,
-         {
-           enrolled: true,
-         },
-       );
+    const approveStudent = async (id) => {
+      try {
+        await axios.patch(
+          `https://6a5608ffb17de7bebbddbc73.mockapi.io/api/users/${id}`,
+          {
+            enrolled: true,
+          },
+        );
 
-       alert("Student approved successfully")
+        const student = students.find((s) => s.id === id);
 
-       loadStudents(); // refresh students list
-     } catch (error) {
-       console.log(error);
-     }
-   };
+        const activities =
+          JSON.parse(localStorage.getItem("recentActivity")) || [];
+
+        activities.unshift(`${student.fullName} approved by admin`);
+
+        localStorage.setItem("recentActivity", JSON.stringify(activities));
+
+        alert("Student Approved");
+
+        loadStudents();
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
    const handleLogout = () => {
      logout();
@@ -140,17 +183,17 @@ const AdminDashboard = () => {
 
           <div className="bg-white rounded-2xl shadow p-6">
             <h2 className="text-gray-500">Theory Lessons</h2>
-            <p className="text-4xl font-bold mt-4">0</p>
+            <p className="text-4xl font-bold mt-4">{lessonCount}</p>
           </div>
 
           <div className="bg-white rounded-2xl shadow p-6">
             <h2 className="text-gray-500">Bookings</h2>
-            <p className="text-4xl font-bold mt-4">0</p>
+            <p className="text-4xl font-bold mt-4">{bookingCount}</p>
           </div>
 
           <div className="bg-white rounded-2xl shadow p-6">
             <h2 className="text-gray-500">Payments</h2>
-            <p className="text-4xl font-bold mt-4">0</p>
+            <p className="text-4xl font-bold mt-4">{paymentCount}</p>
           </div>
         </div>
 
@@ -187,7 +230,6 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        
         {/* Quick Actions */}
         <div className="grid lg:grid-cols-2 gap-8 mt-10">
           <div className="bg-white rounded-2xl shadow p-8">
@@ -227,11 +269,14 @@ const AdminDashboard = () => {
           <div className="bg-white rounded-2xl shadow p-8">
             <h2 className="text-2xl font-bold mb-6">Recent Activity</h2>
 
-            <ul className="space-y-4 text-gray-600">
-              <li>No recent student registrations.</li>
-              <li>No new lesson bookings.</li>
-              <li>No pending payments.</li>
-              <li>No lesson updates.</li>
+            <ul className="space-y-3">
+              {recentActivity.length > 0 ? (
+                recentActivity.map((activity, index) => (
+                  <li key={index}>• {activity}</li>
+                ))
+              ) : (
+                <li>No recent activity.</li>
+              )}
             </ul>
           </div>
         </div>

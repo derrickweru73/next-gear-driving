@@ -34,20 +34,36 @@ const BookingForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+   const handleSubmit = (e) => {
+     e.preventDefault();
 
-    localStorage.setItem(
-      "lessonBooking",
-      JSON.stringify({
-        lesson,
-        ...booking,
-        status: "Pending Payment",
-      }),
-    );
+     const bookingData = {
+       lesson,
+       ...booking,
+       status: "Pending Payment",
+     };
 
-    navigate("/payments");
-  };
+     // Save current booking
+     localStorage.setItem("lessonBooking", JSON.stringify(bookingData));
+
+     // Save all bookings for Admin Dashboard
+     const bookings = JSON.parse(localStorage.getItem("lessonBookings")) || [];
+
+     bookings.push({
+       fullName: booking.fullName,
+       email: booking.email,
+       lesson: lesson.title,
+       date: booking.date,
+       time: booking.time,
+       transmission: booking.transmission,
+       vehicle: booking.vehicle,
+       status: "Pending Payment",
+     });
+
+     localStorage.setItem("lessonBookings", JSON.stringify(bookings));
+
+     navigate("/payments");
+   };
 
   return (
     <div className="min-h-screen bg-[#F8F6F2] px-8 py-12">
