@@ -13,11 +13,19 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  // Login
   const login = (userData) => {
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
   };
 
+  // Update logged in user after approval/payment/profile changes
+  const updateUser = (updatedUser) => {
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+    setUser(updatedUser);
+  };
+
+  // Logout
   const logout = () => {
     localStorage.removeItem("user");
     setUser(null);
@@ -27,13 +35,11 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        setUser,
         login,
         logout,
-
-        // User is logged in
+        updateUser,
         isAuthenticated: !!user,
-
-        // User is approved/enrolled
         isEnrolled: user?.enrolled === true,
       }}
     >

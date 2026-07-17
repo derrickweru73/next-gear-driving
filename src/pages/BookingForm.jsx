@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import practicalLessons from "@/data/practicalLessons";
+import { useAuth } from "@/context/AuthContext";
 
 const BookingForm = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { id } = useParams();
 
   const lesson = practicalLessons.find((item) => item.id === Number(id));
@@ -14,11 +16,13 @@ const BookingForm = () => {
      return savedBooking
        ? JSON.parse(savedBooking)
        : {
-           fullName: "",
-           email: "",
-           phone: "",
-           viewingDate: "",
-           viewingTime: "",
+           fullName: user?.fullName || "",
+           email: user?.email || "",
+           phone: user?.phone || "",
+           date: "",
+           time: "",
+           transmission: "",
+           vehicle: "",
            notes: "",
          };
    });
@@ -89,11 +93,42 @@ const BookingForm = () => {
           className="grid md:grid-cols-2 gap-6 mt-8"
         >
           <div>
+            <label className="font-medium">Full Name</label>
+
+            <input
+              value={booking.fullName}
+              readOnly
+              className="w-full border rounded-xl p-3 mt-2 bg-gray-100"
+            />
+          </div>
+
+          <div>
+            <label className="font-medium">Email</label>
+
+            <input
+              value={booking.email}
+              readOnly
+              className="w-full border rounded-xl p-3 mt-2 bg-gray-100"
+            />
+          </div>
+
+          <div>
+            <label className="font-medium">Phone Number</label>
+
+            <input
+              value={booking.phone}
+              readOnly
+              className="w-full border rounded-xl p-3 mt-2 bg-gray-100"
+            />
+          </div>
+
+          <div>
             <label className="font-medium">Preferred Date</label>
 
             <input
               type="date"
               name="date"
+              value={booking.date}
               onChange={handleChange}
               required
               className="w-full border rounded-xl p-3 mt-2"
@@ -106,6 +141,7 @@ const BookingForm = () => {
             <input
               type="time"
               name="time"
+              value={booking.time}
               onChange={handleChange}
               required
               className="w-full border rounded-xl p-3 mt-2"
@@ -117,9 +153,9 @@ const BookingForm = () => {
 
             <select
               name="transmission"
+              value={booking.transmission}
               onChange={handleChange}
               required
-              className="w-full border rounded-xl p-3 mt-2"
             >
               <option value="">Select</option>
               <option>Manual</option>
@@ -132,9 +168,9 @@ const BookingForm = () => {
 
             <select
               name="vehicle"
+              value={booking.vehicle}
               onChange={handleChange}
               required
-              className="w-full border rounded-xl p-3 mt-2"
             >
               <option value="">Select Vehicle</option>
               <option>Toyota Vitz</option>

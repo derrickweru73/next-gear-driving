@@ -65,31 +65,32 @@ const AdminDashboard = () => {
      setStudents(data);
    };
 
-    const approveStudent = async (id) => {
-      try {
-        await axios.patch(
-          `https://6a5608ffb17de7bebbddbc73.mockapi.io/api/users/${id}`,
-          {
-            enrolled: true,
-          },
-        );
+     const approveStudent = async (id) => {
+       try {
+         // Update MockAPI
+         const response = await axios.patch(
+           `https://6a5608ffb17de7bebbddbc73.mockapi.io/api/users/${id}`,
+           {
+             enrolled: true,
+           },
+         );
 
-        const student = students.find((s) => s.id === id);
+         // If this student is currently logged in,
+         // update the saved login session too.
+         const loggedUser = JSON.parse(localStorage.getItem("user"));
 
-        const activities =
-          JSON.parse(localStorage.getItem("recentActivity")) || [];
+         if (loggedUser && loggedUser.id === response.data.id) {
+           localStorage.setItem("user", JSON.stringify(response.data));
+         }
 
-        activities.unshift(`${student.fullName} approved by admin`);
+         alert("Student approved successfully!");
 
-        localStorage.setItem("recentActivity", JSON.stringify(activities));
-
-        alert("Student Approved");
-
-        loadStudents();
-      } catch (error) {
-        console.log(error);
-      }
-    };
+         loadStudents();
+       } catch (error) {
+         console.error(error);
+         alert("Approval failed.");
+       }
+     };
 
    const handleLogout = () => {
      logout();
