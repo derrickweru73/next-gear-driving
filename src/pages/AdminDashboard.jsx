@@ -11,6 +11,7 @@ import {
   CreditCard,
   CalendarDays,
   CheckCircle,
+  Bell,
   Settings,
   LogOut,
 } from "lucide-react";
@@ -181,6 +182,14 @@ const AdminDashboard = () => {
           >
             <CreditCard size={20} />
             Payments
+          </Link>
+
+          <Link
+            to="/admin-notification"
+            className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
+          >
+            <Bell size={20} />
+            Notifications
           </Link>
         </nav>
 

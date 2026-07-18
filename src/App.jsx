@@ -32,6 +32,7 @@ import AdminPracticalLessons from "./pages/AdminPracticalLesson";
 import StudentProfile from "./pages/StudentProfile";
 import StudentPayment from "./pages/StudentPayment";
 import StudentNotification from "./pages/StudentNotifications";
+import AdminNotification from "./pages/AdminNotification";
 function App() {
   return (
     <>
@@ -62,6 +63,7 @@ function App() {
         <Route path="/admin/payments" element={<AdminPayments />} />
         <Route path="/admin/practical-lessons" element={<AdminPracticalLessons />} />
         <Route path="/student-notifications" element={<StudentNotification/>} />
+        <Route path="/admin-notifications" element={<AdminNotification/>} />
 
    
 
