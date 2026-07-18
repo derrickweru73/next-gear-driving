@@ -29,6 +29,7 @@ import { Import } from "lucide-react";
 import AdminBookings from "./pages/AdminBookingPage";
 import AdminPayments from "./pages/AdminPayments";
 import AdminPracticalLessons from "./pages/AdminPracticalLesson";
+import StudentProfile from "./pages/StudentProfile";
 function App() {
   return (
     <>
@@ -61,6 +62,7 @@ function App() {
   
 
 
+         <Route path="/student-profile" element={<ProtectedRoute><StudentProfile/></ProtectedRoute> } />
          <Route path="/student-dashboard" element={<ProtectedRoute><StudentDashboard/></ProtectedRoute> } />
          
          
