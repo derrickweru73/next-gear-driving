@@ -30,6 +30,7 @@ import AdminBookings from "./pages/AdminBookingPage";
 import AdminPayments from "./pages/AdminPayments";
 import AdminPracticalLessons from "./pages/AdminPracticalLesson";
 import StudentProfile from "./pages/StudentProfile";
+import StudentPayment from "./pages/StudentPayment";
 function App() {
   return (
     <>
@@ -59,11 +60,12 @@ function App() {
         <Route path="/admin/bookings" element={<AdminBookings />} />
         <Route path="/admin/payments" element={<AdminPayments />} />
         <Route path="/admin/practical-lessons" element={<AdminPracticalLessons />} />
-  
+   
 
 
          <Route path="/student-profile" element={<ProtectedRoute><StudentProfile/></ProtectedRoute> } />
          <Route path="/student-dashboard" element={<ProtectedRoute><StudentDashboard/></ProtectedRoute> } />
+         <Route path="/student-payments" element={<ProtectedRoute><StudentPayment/></ProtectedRoute> } />
          
          
         

@@ -8,7 +8,8 @@ import {
   CreditCard,
   Edit,
   Save,
-  LogOut,
+  ArrowLeft,
+
 } from "lucide-react";
 
 const StudentProfile = () => {
@@ -128,11 +129,11 @@ const StudentProfile = () => {
             )}
 
             <button
-              onClick={handleLogout}
-              className="bg-red-600 text-white px-5 py-3 rounded-xl flex items-center gap-2"
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-2 bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition"
             >
-              <LogOut size={18} />
-              Logout
+              <ArrowLeft size={18} />
+              Back
             </button>
           </div>
         </div>

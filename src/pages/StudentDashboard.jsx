@@ -97,7 +97,7 @@ const [practicalLessons, setPracticalLessons] = useState([]);
           </Link>
 
           <Link
-            to="/payments"
+            to="/student-payments"
             className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
           >
             <CreditCard size={20} />
