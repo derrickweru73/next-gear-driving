@@ -86,27 +86,7 @@ const Navbar = () => {
               After approval -> booking lessons
           */}
 
-          {user?.enrolled === true ? (
-            <Link to="/practical-lessons">
-              <Button
-                variant="outline"
-                className="hidden xl:flex items-center gap-2 border-[#0F172A] text-[#0F172A] hover:bg-[#0F172A] hover:text-white rounded-full"
-              >
-                <CalendarDays className="w-4 h-4" />
-                Book Lesson
-              </Button>
-            </Link>
-          ) : (
-            <Link to="/enrolloment">
-              <Button
-                variant="outline"
-                className="hidden xl:flex items-center gap-2 border-[#0F172A] text-[#0F172A] hover:bg-[#0F172A] hover:text-white rounded-full"
-              >
-                <CalendarDays className="w-4 h-4" />
-                Enroll Now
-              </Button>
-            </Link>
-          )}
+          
 
           <Link to="/contact">
             <Button
@@ -141,11 +121,14 @@ const Navbar = () => {
               */}
 
               {user?.enrolled === false && (
-                <Link
-                  to="/enroll"
-                  className="hidden md:block font-semibold text-slate-700 hover:text-[#F97316]"
-                >
-                  Enroll Now
+                <Link to="/enrollment">
+                  <Button
+                    variant="outline"
+                    className="hidden xl:flex items-center gap-2 border-[#0F172A] text-[#0F172A] hover:bg-[#0F172A] hover:text-white rounded-full"
+                  >
+                    <CalendarDays className="w-4 h-4" />
+                    Enroll Now
+                  </Button>
                 </Link>
               )}
 
