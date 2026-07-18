@@ -71,7 +71,7 @@ const Register = () => {
 
        // Save registered students for Admin Dashboard
         
-       login(user);
+       
 
        alert("Registration successful!");
 
