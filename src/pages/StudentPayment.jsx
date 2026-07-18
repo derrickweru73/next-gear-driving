@@ -16,15 +16,27 @@ const StudentPayment = () => {
 
   const [payment, setPayment] = useState(null);
 
-  useEffect(() => {
-    if (!user) return;
+   useEffect(() => {
+     const loadPayment = () => {
+       if (!user) return;
 
-    const payments = JSON.parse(localStorage.getItem("payments")) || [];
+       const payments = JSON.parse(localStorage.getItem("payments")) || [];
 
-    const studentPayment = payments.find((item) => item.email === user.email);
+       const studentPayment = payments.find(
+         (item) => item.email === user.email,
+       );
 
-    setPayment(studentPayment || null);
-  }, [user]);
+       setPayment(studentPayment || null);
+     };
+
+     loadPayment();
+
+     window.addEventListener("storage", loadPayment);
+
+     return () => {
+       window.removeEventListener("storage", loadPayment);
+     };
+   }, [user]);
 
   return (
     <div className="min-h-screen bg-[#F8F6F2] py-10 px-6">
@@ -60,8 +72,16 @@ const StudentPayment = () => {
                 </div>
 
                 <div>
-                  <h2 className="text-3xl font-bold text-green-600">
-                    Payment Successful
+                  <h2
+                    className={`text-3xl font-bold ${
+                      payment.status === "Approved"
+                        ? "text-green-600"
+                        : "text-yellow-600"
+                    }`}
+                  >
+                    {payment.status === "Approved"
+                      ? "Payment Approved"
+                      : "Payment Pending"}
                   </h2>
 
                   <p className="text-gray-500 mt-2">
