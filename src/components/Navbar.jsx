@@ -86,7 +86,7 @@ const Navbar = () => {
               After approval -> booking lessons
           */}
 
-          
+           
 
           <Link to="/contact">
             <Button
@@ -121,14 +121,11 @@ const Navbar = () => {
               */}
 
               {user?.enrolled === false && (
-                <Link to="/enrollment">
-                  <Button
-                    variant="outline"
-                    className="hidden xl:flex items-center gap-2 border-[#0F172A] text-[#0F172A] hover:bg-[#0F172A] hover:text-white rounded-full"
-                  >
-                    <CalendarDays className="w-4 h-4" />
-                    Enroll Now
-                  </Button>
+                <Link
+                  to="/enrollment"
+                  className="hidden md:block font-semibold text-slate-700 hover:text-[#F97316]"
+                >
+                  Enroll Now
                 </Link>
               )}
 

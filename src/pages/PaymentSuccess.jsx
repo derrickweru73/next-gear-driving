@@ -27,7 +27,7 @@ const PaymentSuccess = () => {
         </div>
 
         <Link
-          to="/"
+          to="/pending enrollment"
           className="inline-block mt-10 bg-[#F97316] hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-semibold"
         >
           Return to Home
