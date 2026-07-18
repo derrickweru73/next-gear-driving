@@ -185,7 +185,7 @@ const AdminDashboard = () => {
           </Link>
 
           <Link
-            to="/admin-notification"
+            to="/admin-notifications"
             className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
           >
             <Bell size={20} />

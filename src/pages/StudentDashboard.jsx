@@ -123,6 +123,13 @@ const [practicalLessons, setPracticalLessons] = useState([]);
             <User size={20} />
             Profile
           </Link>
+          <Link
+            to="/student-notifications"
+            className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
+          >
+            <User size={20} />
+            Notification
+          </Link>
         </nav>
 
         <div className="p-6">
@@ -130,7 +137,7 @@ const [practicalLessons, setPracticalLessons] = useState([]);
             onClick={handleLogout}
             className="w-full bg-red-600 hover:bg-red-700 rounded-xl py-3 flex justify-center items-center gap-3"
           >
-            <LogOut size={18} />
+            <LogOut size={12} />
             Logout
           </button>
         </div>
