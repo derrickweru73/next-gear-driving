@@ -177,7 +177,7 @@ const AdminDashboard = () => {
           </Link>
 
           <Link
-            to="/admin/payment"
+            to="/admin/payments"
             className="flex items-center gap-3 px-6 py-4 hover:bg-slate-800 transition"
           >
             <CreditCard size={20} />
