@@ -1,20 +1,24 @@
- import { Navigate } from "react-router-dom";
- import { useAuth } from "@/context/AuthContext";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
- const ProtectedRoute = ({ children }) => {
-   const { user } = useAuth();
+const ProtectedRoute = ({ children }) => {
+  const { user } = useAuth();
 
-   // Not logged in
-   if (!user) {
-     return <Navigate to="/login" replace />;
-   }
+  // Wait until AuthContext restores the user
+  if (user === null) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
 
-   // Student not yet approved
-   if (user.role === "student" && !user.enrolled) {
-     return <Navigate to="/enrollment" replace />;
-   }
+  // Not logged in
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
-   return children;
- };
+  return children;
+};
 
- export default ProtectedRoute;
+export default ProtectedRoute;

@@ -97,7 +97,7 @@ const Navbar = () => {
               </Button>
             </Link>
           ) : (
-            <Link to="/enroll">
+            <Link to="/enrolloment">
               <Button
                 variant="outline"
                 className="hidden xl:flex items-center gap-2 border-[#0F172A] text-[#0F172A] hover:bg-[#0F172A] hover:text-white rounded-full"

@@ -23,7 +23,7 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import AdminDashboard from "./pages/AdminDashboard";
 import ManageStudents from "./pages/ManageStudents";
 import AdminTheoryLessons from "./pages/AdminTheoryLessons";
-import EnrollmentRoute from "./pages/EnrollmentRoute";
+// import EnrollmentRoute from "./pages/EnrollmentRoute";
 import PendingEnrollment from "./pages/PendingEnrollment";
 import { Import } from "lucide-react";
 import AdminBookings from "./pages/AdminBookingPage";
@@ -61,7 +61,7 @@ function App() {
   
 
 
-         <Route path="/student-dashboard" element={<EnrollmentRoute><StudentDashboard/></EnrollmentRoute> } />
+         <Route path="/student-dashboard" element={<ProtectedRoute><StudentDashboard/></ProtectedRoute> } />
          
          
         
