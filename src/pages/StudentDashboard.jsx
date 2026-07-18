@@ -17,6 +17,7 @@ import { useAuth } from "@/context/AuthContext";
 const StudentDashboard = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+    const [unreadNotifications, setUnreadNotifications] = useState(0);
 
   const handleLogout = () => {
     logout();
@@ -30,6 +31,8 @@ const [nextLesson, setNextLesson] = useState(null);
 const [payment, setPayment] = useState(null);
 const [booking, setBooking] = useState(null);
 const [practicalLessons, setPracticalLessons] = useState([]);
+
+
 
 //std lessonbooking payments theoryresult and all prac
  useEffect(() => {
@@ -60,6 +63,15 @@ const [practicalLessons, setPracticalLessons] = useState([]);
    }
 
    setPracticalLessons(lessons);
+
+   const notifications =
+     JSON.parse(localStorage.getItem("notifications")) || [];
+
+   const unread = notifications.filter(
+     (notification) => !notification.read,
+   ).length;
+
+   setUnreadNotifications(unread);
  }, [user]);
 
   return (
@@ -139,10 +151,13 @@ const [practicalLessons, setPracticalLessons] = useState([]);
             </p>
           </div>
 
-          <button className="relative bg-white shadow rounded-full p-3">
+          <button
+            onClick={() => navigate("/student-notifications")}
+            className="relative bg-white shadow rounded-full p-3 hover:bg-gray-100 transition"
+          >
             <Bell className="text-[#F97316]" size={22} />
             <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">
-              2
+              {unreadNotifications}
             </span>
           </button>
         </div>
@@ -159,7 +174,7 @@ const [practicalLessons, setPracticalLessons] = useState([]);
 
           <div className="bg-white rounded-2xl shadow p-6 border-l-4 border-[#0F172A]">
             <CalendarDays className="text-[#F97316]" />
-             <h2 className="text-3xl font-bold mt-4">
+            <h2 className="text-3xl font-bold mt-4">
               {practicalLessons.length}
             </h2>
           </div>
