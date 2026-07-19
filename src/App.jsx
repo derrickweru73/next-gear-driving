@@ -32,6 +32,7 @@ import StudentPayment from "./pages/StudentPayment";
 import StudentNotification from "./pages/StudentNotifications";
 import AdminNotification from "./pages/AdminNotification";
 import BookingSuccess from "./pages/BookingSuccess";
+import Certificate from "./pages/Certificate";
 function App() {
   return (
     <>
@@ -64,6 +65,7 @@ function App() {
         <Route path="/student-notifications" element={<StudentNotification/>} />
         <Route path="/admin-notifications" element={<AdminNotification/>} />
         <Route path="/booking-success" element={<BookingSuccess/>} />
+        <Route path="/certificate" element={<Certificate/>} />
 
    
 

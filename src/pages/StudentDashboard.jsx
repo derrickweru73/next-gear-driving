@@ -32,6 +32,8 @@ const [payment, setPayment] = useState(null);
 const [booking, setBooking] = useState(null);
 const [practicalLessons, setPracticalLessons] = useState([]);
 
+const certificateReady = theoryResult?.passed;
+
 
 
 //std lessonbooking payments theoryresult and all prac
@@ -336,6 +338,33 @@ const [practicalLessons, setPracticalLessons] = useState([]);
               </Link>
             </div>
           </div>
+        </div>
+        {/* Certificate */}
+        <div className="mt-10 bg-white rounded-2xl shadow p-8">
+          <h2 className="text-2xl font-bold text-[#0F172A]">
+            Driving Certificate
+          </h2>
+
+          <p className="text-gray-600 mt-3">
+            Your certificate becomes available after you successfully complete
+            both the theory assessment and practical driving training.
+          </p>
+
+          {certificateReady ? (
+            <Link
+              to="/certificate"
+              className="inline-block mt-6 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold"
+            >
+              View Certificate
+            </Link>
+          ) : (
+            <button
+              disabled
+              className="mt-6 bg-gray-300 text-gray-600 px-6 py-3 rounded-xl cursor-not-allowed"
+            >
+              Certificate Locked
+            </button>
+          )}
         </div>
       </main>
     </div>
