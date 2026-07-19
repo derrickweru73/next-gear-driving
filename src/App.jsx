@@ -31,6 +31,7 @@ import StudentProfile from "./pages/StudentProfile";
 import StudentPayment from "./pages/StudentPayment";
 import StudentNotification from "./pages/StudentNotifications";
 import AdminNotification from "./pages/AdminNotification";
+import BookingSuccess from "./pages/BookingSuccess";
 function App() {
   return (
     <>
@@ -62,6 +63,7 @@ function App() {
         <Route path="/admin/practical-lessons" element={<AdminPracticalLessons />} />
         <Route path="/student-notifications" element={<StudentNotification/>} />
         <Route path="/admin-notifications" element={<AdminNotification/>} />
+        <Route path="/booking-success" element={<BookingSuccess/>} />
 
    
 

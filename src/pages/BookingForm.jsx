@@ -66,7 +66,7 @@ const BookingForm = () => {
 
      localStorage.setItem("lessonBookings", JSON.stringify(bookings));
 
-     navigate("/payment");
+     navigate("/booking-success");
    };
 
   return (
@@ -192,7 +192,7 @@ const BookingForm = () => {
 
           <div className="md:col-span-2">
             <button className="w-full bg-[#F97316] hover:bg-orange-600 text-white py-4 rounded-xl font-semibold">
-              Continue to Payment
+              Confirm Booking
             </button>
           </div>
         </form>
