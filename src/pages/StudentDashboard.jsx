@@ -32,8 +32,8 @@ const [payment, setPayment] = useState(null);
 const [booking, setBooking] = useState(null);
 const [practicalLessons, setPracticalLessons] = useState([]);
 
-const certificateReady = theoryResult?.passed;
-
+ const certificateReady =
+   theoryResult?.passed && booking?.status === "Completed";
 
 
 //std lessonbooking payments theoryresult and all prac

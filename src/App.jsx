@@ -33,6 +33,7 @@ import StudentNotification from "./pages/StudentNotifications";
 import AdminNotification from "./pages/AdminNotification";
 import BookingSuccess from "./pages/BookingSuccess";
 import Certificate from "./pages/Certificate";
+import InstructorDashboard from "./pages/instructor/InstructorDashboard";
 function App() {
   return (
     <>
@@ -66,6 +67,7 @@ function App() {
         <Route path="/admin-notifications" element={<AdminNotification/>} />
         <Route path="/booking-success" element={<BookingSuccess/>} />
         <Route path="/certificate" element={<Certificate/>} />
+        <Route path="/instructor-dashboard" element={<InstructorDashboard/>} />
 
    
 
