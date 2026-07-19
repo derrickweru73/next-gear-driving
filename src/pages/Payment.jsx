@@ -27,21 +27,21 @@
         enrolled: false,
       };
 
-     localStorage.setItem(
-       "studentEnrollment",
-       JSON.stringify(updatedEnrollment),
-     );
+      
 
-     // Save pending enrollments for admin
-     const pendingEnrollments =
-       JSON.parse(localStorage.getItem("pendingEnrollments")) || [];
+      const pendingEnrollments =
+        JSON.parse(localStorage.getItem("pendingEnrollments")) || [];
 
-     pendingEnrollments.push(updatedEnrollment);
+      const updatedPending = pendingEnrollments.map((student) =>
+        student.userId === updatedEnrollment.userId
+          ? updatedEnrollment
+          : student,
+      );
 
-     localStorage.setItem(
-       "pendingEnrollments",
-       JSON.stringify(pendingEnrollments),
-     );
+      localStorage.setItem(
+        "pendingEnrollments",
+        JSON.stringify(updatedPending),
+      );
 
      // Save payment history
      const payments = JSON.parse(localStorage.getItem("payments")) || [];

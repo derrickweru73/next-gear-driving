@@ -72,53 +72,42 @@ const AdminDashboard = () => {
       setActivities(recent);
     };
 
-       const approveStudent = async (id) => {
-         try {
-           const student = students.find(
-             (student) => String(student.id) === String(id),
-           );
+        const approveStudent = async (email) => {
+          try {
+            const student = students.find((user) => user.email === email);
 
-           if (!student) {
-             throw new Error("Student not found");
-           }
+            if (!student) {
+              alert("Student not found.");
+              return;
+            }
 
-           const response = await axios.put(
-             `https://6a5608ffb17de7bebbddbc73.mockapi.io/api/users/${student.id}`,
-             {
-               ...student,
-               enrolled: true,
-             },
-           );
-
-           const pending =
-             JSON.parse(localStorage.getItem("pendingEnrollments")) || [];
-
-            const updatedPending = pending.filter(
-              (item) => String(item.userId) !== String(response.data.id),
+            const response = await axios.put(
+              `https://6a5608ffb17de7bebbddbc73.mockapi.io/api/users/${student.id}`,
+              {
+                ...student,
+                enrolled: true,
+              },
             );
-           localStorage.setItem(
-             "pendingEnrollments",
-             JSON.stringify(updatedPending),
-           );
-           setPendingEnrollments(updatedPending);
 
-           const activities =
-             JSON.parse(localStorage.getItem("recentActivities")) || [];
+            const updatedPending = pendingEnrollments.filter(
+              (item) => item.email !== email,
+            );
 
-           activities.unshift(
-             `${response.data.fullName} was approved by the administrator`,
-           );
+            localStorage.setItem(
+              "pendingEnrollments",
+              JSON.stringify(updatedPending),
+            );
 
-           localStorage.setItem("recentActivities", JSON.stringify(activities));
+            setPendingEnrollments(updatedPending);
 
-           alert("Student approved successfully!");
+            alert("Student approved successfully!");
 
-           loadStudents();
-         } catch (error) {
-           console.error("Approval error:", error);
-           alert("Approval failed.");
-         }
-       };
+            loadStudents();
+          } catch (error) {
+            console.error(error);
+            alert("Approval failed.");
+          }
+        };
 
    const handleLogout = () => {
      logout();
@@ -262,7 +251,7 @@ const AdminDashboard = () => {
 
                 {!student.enrolled && (
                   <button
-                    onClick={() => approveStudent(student.userId)}
+                    onClick={() => approveStudent(student.email)}
                     className="bg-green-600 text-white px-5 py-2 rounded-lg"
                   >
                     Approve
