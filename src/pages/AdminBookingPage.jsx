@@ -11,16 +11,20 @@ const AdminBookings = () => {
     setBookings(storedBookings);
   }, []);
 
-  const updateStatus = (index, status) => {
-    const updatedBookings = [...bookings];
+   const updateStatus = (index, status) => {
+     const updatedBookings = [...bookings];
 
-    updatedBookings[index].status = status;
+     updatedBookings[index].status = status;
 
-    localStorage.setItem("lessonBookings", JSON.stringify(updatedBookings));
+     // Assign instructor when booking is approved
+     if (status === "Approved") {
+       updatedBookings[index].instructor = "John Kamau";
+     }
 
-    setBookings(updatedBookings);
-  };
+     localStorage.setItem("lessonBookings", JSON.stringify(updatedBookings));
 
+     setBookings(updatedBookings);
+   };
   return (
     <div className="min-h-screen bg-gray-100 p-10">
       <div className="flex justify-between items-center mb-8">
@@ -43,6 +47,7 @@ const AdminBookings = () => {
               <th className="p-4">Date</th>
               <th className="p-4">Time</th>
               <th className="p-4">Vehicle</th>
+              <th className="p-4">Insructor</th>
               <th className="p-4">Status</th>
               <th className="p-4">Action</th>
             </tr>
@@ -62,15 +67,25 @@ const AdminBookings = () => {
 
                   <td className="p-4">{booking.vehicle}</td>
 
+                  <td className="p-4">
+                    {booking.instructor || "Not Assigned"}
+                  </td>
+
                   <td className="p-4">{booking.status}</td>
 
                   <td className="p-4">
-                    <button
-                      onClick={() => updateStatus(index, "Approved")}
-                      className="bg-green-600 text-white px-4 py-2 rounded-lg"
-                    >
-                      Approve
-                    </button>
+                    {booking.status === "Approved" ? (
+                      <span className="text-green-600 font-semibold">
+                        Approved
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => updateStatus(index, "Approved")}
+                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
+                      >
+                        Approve
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))

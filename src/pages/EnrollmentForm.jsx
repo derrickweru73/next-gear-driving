@@ -37,20 +37,30 @@ const EnrollmentForm = () => {
     });
   };
 
-   const handleSubmit = (e) => {
-     e.preventDefault();
+    const handleSubmit = (e) => {
+      e.preventDefault();
 
-     const enrollment = {
-       ...formData,
-       userId: user?.id,
-       enrolled: false,
-     };
+        const enrollment = {
+          id: Date.now(),
+          userId: user?.id || user?.userId,
+          ...formData,
+          enrolled: false,
+          status: "Pending",
+        };
 
-     localStorage.setItem("studentEnrollment", JSON.stringify(enrollment));
+      // Save current enrollment
+      localStorage.setItem("studentEnrollment", JSON.stringify(enrollment));
 
-     navigate("/payment");
-   };
+      // Save to pending enrollments list
+      const pending =
+        JSON.parse(localStorage.getItem("pendingEnrollments")) || [];
 
+      pending.push(enrollment);
+
+      localStorage.setItem("pendingEnrollments", JSON.stringify(pending));
+
+      navigate("/payment");
+    };
   return (
     <div className="min-h-screen bg-[#F8F6F2] py-12 px-6">
       <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg p-10">

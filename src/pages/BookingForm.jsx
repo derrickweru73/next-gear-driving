@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import practicalLessons from "@/data/practicalLessons";
 import { useAuth } from "@/context/AuthContext";
@@ -10,26 +10,16 @@ const BookingForm = () => {
 
   const lesson = practicalLessons.find((item) => item.id === Number(id));
 
-   const [booking, setBooking] = useState(() => {
-     const savedBooking = localStorage.getItem("booking");
-
-     return savedBooking
-       ? JSON.parse(savedBooking)
-       : {
-           fullName: user?.fullName || "",
-           email: user?.email || "",
-           phone: user?.phone || "",
-           date: "",
-           time: "",
-           transmission: "",
-           vehicle: "",
-           notes: "",
-         };
-   });
-
-   useEffect(() => {
-     localStorage.setItem("booking", JSON.stringify(booking));
-   }, [booking]);
+  const [booking, setBooking] = useState({
+    fullName: user?.fullName || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+    date: "",
+    time: "",
+    transmission: "",
+    vehicle: "",
+    notes: "",
+  });
 
   const handleChange = (e) => {
     setBooking({
@@ -42,32 +32,40 @@ const BookingForm = () => {
      e.preventDefault();
 
      const bookingData = {
-       lesson,
-       ...booking,
-       status: "Pending Payment",
-     };
-
-     // Save current booking
-     localStorage.setItem("lessonBooking", JSON.stringify(bookingData));
-
-     // Save all bookings for Admin Dashboard
-     const bookings = JSON.parse(localStorage.getItem("lessonBookings")) || [];
-
-     bookings.push({
+       id: Date.now(), // Unique booking ID
        fullName: booking.fullName,
        email: booking.email,
+       phone: booking.phone,
        lesson: lesson.title,
        date: booking.date,
        time: booking.time,
        transmission: booking.transmission,
        vehicle: booking.vehicle,
-       status: "Pending Payment",
-     });
+       notes: booking.notes,
+       status: "Pending Approval",
+       instructor: "", // Admin will assign later
+       feedback: "",
+     };
+
+     // Save current booking
+     localStorage.setItem("lessonBooking", JSON.stringify(bookingData));
+
+     // Save all bookings
+     const bookings = JSON.parse(localStorage.getItem("lessonBookings")) || [];
+
+     bookings.push(bookingData);
 
      localStorage.setItem("lessonBookings", JSON.stringify(bookings));
 
      navigate("/booking-success");
    };
+  if (!lesson) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <h1 className="text-2xl font-bold">Lesson not found.</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F8F6F2] px-8 py-12">
@@ -156,6 +154,7 @@ const BookingForm = () => {
               value={booking.transmission}
               onChange={handleChange}
               required
+              className="w-full border rounded-xl p-3 mt-2"
             >
               <option value="">Select</option>
               <option>Manual</option>
@@ -171,6 +170,7 @@ const BookingForm = () => {
               value={booking.vehicle}
               onChange={handleChange}
               required
+              className="w-full border rounded-xl p-3 mt-2"
             >
               <option value="">Select Vehicle</option>
               <option>Toyota Vitz</option>
@@ -185,13 +185,18 @@ const BookingForm = () => {
             <textarea
               name="notes"
               rows="4"
+              value={booking.notes}
               onChange={handleChange}
               className="w-full border rounded-xl p-3 mt-2"
+              placeholder="Any special requests or information..."
             />
           </div>
 
           <div className="md:col-span-2">
-            <button className="w-full bg-[#F97316] hover:bg-orange-600 text-white py-4 rounded-xl font-semibold">
+            <button
+              type="submit"
+              className="w-full bg-[#F97316] hover:bg-orange-600 text-white py-4 rounded-xl font-semibold"
+            >
               Confirm Booking
             </button>
           </div>

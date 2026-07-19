@@ -10,28 +10,44 @@ import {
 const InstructorDashboard = () => {
   const [bookings, setBookings] = useState([]);
 
-  useEffect(() => {
+  const loadBookings = () => {
     const savedBookings =
       JSON.parse(localStorage.getItem("lessonBookings")) || [];
 
-    setBookings(savedBookings);
+    const instructorBookings = savedBookings.filter(
+      (booking) => booking.instructor === "John Kamau",
+    );
+
+    setBookings(instructorBookings);
+  };
+
+  useEffect(() => {
+    loadBookings();
   }, []);
 
-  const completeLesson = (index) => {
-    const feedback = prompt("Enter instructor feedback:");
+  const completeLesson = (bookingId) => {
+    const feedback = window.prompt("Enter instructor feedback:");
 
-    const updatedBookings = [...bookings];
+    if (feedback === null) return;
 
-    updatedBookings[index].status = "Completed";
+    const allBookings =
+      JSON.parse(localStorage.getItem("lessonBookings")) || [];
 
-    updatedBookings[index].feedback =
-      feedback || "Lesson completed successfully.";
+    const updatedBookings = allBookings.map((booking) =>
+      booking.id === bookingId
+        ? {
+            ...booking,
+            status: "Completed",
+            feedback: feedback.trim() || "Lesson completed successfully.",
+          }
+        : booking,
+    );
 
     localStorage.setItem("lessonBookings", JSON.stringify(updatedBookings));
 
-    setBookings(updatedBookings);
+    loadBookings();
 
-    alert("Lesson marked as completed.");
+    alert("Lesson completed successfully.");
   };
 
   return (
@@ -43,16 +59,18 @@ const InstructorDashboard = () => {
           </h1>
 
           <p className="text-gray-500 mt-2">
-            Manage practical driving lessons.
+            Manage assigned practical lessons.
           </p>
         </div>
       </div>
+
+      {/* Statistics */}
 
       <div className="grid md:grid-cols-3 gap-6 mb-10">
         <div className="bg-white rounded-2xl shadow p-6">
           <CalendarDays className="text-[#F97316]" size={35} />
           <h2 className="text-3xl font-bold mt-4">{bookings.length}</h2>
-          <p className="text-gray-500">Booked Lessons</p>
+          <p className="text-gray-500">Assigned Lessons</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow p-6">
@@ -74,6 +92,8 @@ const InstructorDashboard = () => {
         </div>
       </div>
 
+      {/* Table */}
+
       <div className="bg-white rounded-2xl shadow overflow-hidden">
         <table className="w-full">
           <thead className="bg-[#0F172A] text-white">
@@ -91,8 +111,8 @@ const InstructorDashboard = () => {
 
           <tbody>
             {bookings.length > 0 ? (
-              bookings.map((booking, index) => (
-                <tr key={index} className="border-b">
+              bookings.map((booking) => (
+                <tr key={booking.id} className="border-b">
                   <td className="p-4">{booking.fullName}</td>
 
                   <td>{booking.lesson}</td>
@@ -136,7 +156,7 @@ const InstructorDashboard = () => {
                       <span className="text-green-600 font-semibold">Done</span>
                     ) : (
                       <button
-                        onClick={() => completeLesson(index)}
+                        onClick={() => completeLesson(booking.id)}
                         className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
                       >
                         Complete
@@ -147,8 +167,8 @@ const InstructorDashboard = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="8" className="text-center py-10">
-                  No practical lessons booked yet.
+                <td colSpan="8" className="text-center py-10 text-gray-500">
+                  No lessons assigned to this instructor.
                 </td>
               </tr>
             )}
