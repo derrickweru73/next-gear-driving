@@ -32,9 +32,11 @@ const [payment, setPayment] = useState(null);
 const [booking, setBooking] = useState(null);
 const [practicalLessons, setPracticalLessons] = useState([]);
 
- const certificateReady =
-   theoryResult?.passed && booking?.status === "Completed";
+  const certificateReady =
+    theoryResult?.passed && booking?.status === "Completed";
 
+  const practicalProgress =
+    booking?.status === "Completed" ? "100%" : booking ? "50%" : "0%";
 
 //std lessonbooking payments theoryresult and all prac
  useEffect(() => {
@@ -234,14 +236,14 @@ const [practicalLessons, setPracticalLessons] = useState([]);
               <div>
                 <div className="flex justify-between mb-2">
                   <span>Practical Lessons</span>
-                  <span>{booking ? "100%" : "0%"}</span>
+                  <span>{practicalProgress}</span>
                 </div>
 
                 <div className="h-3 rounded-full bg-gray-200">
                   <div
                     className="h-3 rounded-full bg-[#0F172A]"
                     style={{
-                      width: booking ? "100%" : "0%",
+                      width: practicalProgress,
                     }}
                   />
                 </div>
@@ -250,7 +252,9 @@ const [practicalLessons, setPracticalLessons] = useState([]);
               <div>
                 <div className="flex justify-between mb-2">
                   <span>Driving Test</span>
-                  <span>Locked</span>
+                  <span>
+                    {booking?.status === "Completed" ? "Completed" : "Locked"}
+                  </span>
                 </div>
 
                 <div className="h-3 rounded-full bg-gray-200"></div>
@@ -304,18 +308,22 @@ const [practicalLessons, setPracticalLessons] = useState([]);
                   : !theoryResult?.passed
                     ? "Complete Theory Lessons"
                     : !booking
-                      ? "Book Practical Lessons"
-                      : "Continue Practical Training"}
+                      ? "Book Practical Lesson"
+                      : booking.status === "Completed"
+                        ? "Download Certificate"
+                        : "Attend Practical Lesson"}
               </h3>
 
               <p className="text-gray-600 mt-3 leading-7">
                 {!payment
-                  ? "Complete your course payment to activate your account."
+                  ? "Complete your payment."
                   : !theoryResult?.passed
-                    ? "Finish your theory lessons and pass the assessment."
+                    ? "Finish theory lessons and pass the assessment."
                     : !booking
-                      ? "You passed theory. Your next step is booking a practical lesson."
-                      : "Attend your scheduled practical lessons and prepare for the driving test."}
+                      ? "Book your practical lesson."
+                      : booking.status === "Completed"
+                        ? "Congratulations! Your certificate is now available."
+                        : "Attend your scheduled lesson until your instructor marks it complete."}
               </p>
 
               <Link
@@ -324,7 +332,11 @@ const [practicalLessons, setPracticalLessons] = useState([]);
                     ? "/payment"
                     : !theoryResult?.passed
                       ? "/theory-lessons"
-                      : "/practical-lessons"
+                      : !booking
+                        ? "/practical-lessons"
+                        : booking.status === "Completed"
+                          ? "/certificate"
+                          : "/practical-lessons"
                 }
                 className="inline-block mt-6 bg-[#F97316] hover:bg-orange-600 text-white px-6 py-3 rounded-xl font-semibold"
               >
@@ -334,7 +346,9 @@ const [practicalLessons, setPracticalLessons] = useState([]);
                     ? "Continue Learning"
                     : !booking
                       ? "Book Practical Lesson"
-                      : "View Practical Lessons"}
+                      : booking.status === "Completed"
+                        ? "View Certificate"
+                        : "View Practical Lesson"}
               </Link>
             </div>
           </div>
