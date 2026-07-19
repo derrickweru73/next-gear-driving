@@ -94,19 +94,25 @@ const TheoryLessonDetails = () => {
         {/* Lesson Content */}
 
         <div className="mt-10">
-          <h2 className="text-2xl font-bold text-[#0F172A]">Lesson Notes</h2>
-
           <h2 className="text-2xl font-bold text-[#0F172A] mt-8">
             Lesson Objectives
           </h2>
 
-          <p className="text-gray-700 mt-5 leading-8">{lesson.objectives}</p>
-
+          <ul className="list-disc pl-6 mt-5 space-y-2 text-gray-700">
+            {lesson.objectives
+              ?.split("•")
+              .filter((item) => item.trim() !== "")
+              .map((item, index) => (
+                <li key={index}>{item.trim()}</li>
+              ))}
+          </ul>
           <h2 className="text-2xl font-bold text-[#0F172A] mt-8">
             Lesson Notes
           </h2>
 
-          <p className="text-gray-700 mt-5 leading-8">{lesson.notes}</p>
+          <div className="text-gray-700 mt-5 leading-8 whitespace-pre-line">
+            {lesson.notes}
+          </div>
         </div>
 
         <button
