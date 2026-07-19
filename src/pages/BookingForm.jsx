@@ -66,7 +66,7 @@ const BookingForm = () => {
 
      localStorage.setItem("lessonBookings", JSON.stringify(bookings));
 
-     navigate("/payments");
+     navigate("/payment");
    };
 
   return (
